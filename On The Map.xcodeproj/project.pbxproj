@@ -106,11 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				450E8D071D3E794E000E8CE3 /* AppDelegate.swift */,
-				450E8D091D3E794E000E8CE3 /* LoginViewController.swift */,
-				45B7F4DC1D3E9FC800DC66D4 /* PaddedLoginTextField.swift */,
-				45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */,
-				45B7F4D81D3E9B5A00DC66D4 /* ListViewController.swift */,
-				45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */,
+				45B7F4E11D3EA89700DC66D4 /* Custom Views */,
+				45B7F4E01D3EA88500DC66D4 /* View Controllers */,
 				450E8D0B1D3E794E000E8CE3 /* Main.storyboard */,
 				450E8D0E1D3E794E000E8CE3 /* Assets.xcassets */,
 				450E8D101D3E794E000E8CE3 /* LaunchScreen.storyboard */,
@@ -135,6 +132,25 @@
 				450E8D291D3E794E000E8CE3 /* Info.plist */,
 			);
 			path = "On The MapUITests";
+			sourceTree = "<group>";
+		};
+		45B7F4E01D3EA88500DC66D4 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				450E8D091D3E794E000E8CE3 /* LoginViewController.swift */,
+				45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */,
+				45B7F4D81D3E9B5A00DC66D4 /* ListViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		45B7F4E11D3EA89700DC66D4 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				45B7F4DC1D3E9FC800DC66D4 /* PaddedLoginTextField.swift */,
+				45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */,
+			);
+			name = "Custom Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

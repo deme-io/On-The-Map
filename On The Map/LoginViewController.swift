@@ -10,6 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var emailTextField: PaddedLoginTextField!
+    @IBOutlet weak var passwordTextField: PaddedLoginTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
