@@ -101,6 +101,10 @@
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="Xau-LZ-Sav" id="9kx-32-FkZ"/>
+                        <outlet property="passwordTextField" destination="jto-Ds-Og8" id="Z8N-xc-lNo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
