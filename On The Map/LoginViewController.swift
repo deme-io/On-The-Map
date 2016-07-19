@@ -10,21 +10,18 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    // MARK: Properties
+    
     @IBOutlet weak var emailTextField: PaddedLoginTextField!
     @IBOutlet weak var passwordTextField: PaddedLoginTextField!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-    }
-
+    
+    
+    // MARK: Action Methods
     @IBAction func loginButtonPressed(sender: AnyObject) {
     }
 
     @IBAction func signupButtonPressed(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
-
+        UIApplication.sharedApplication().openURL(NSURL(string: Constants.URLS.udacitySignupURLString)!)
     }
 
 }
