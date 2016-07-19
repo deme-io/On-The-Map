@@ -10,8 +10,23 @@ import Foundation
 
 struct Constants {
     
-    struct URLS {
-        static let udacitySignupURLString = "https://www.udacity.com/account/auth#!/signup"
+    struct Udacity {
+        
+        struct URLS {
+            // MARK: Udacity.com signup page URL
+            static let udacitySignupURLString = "https://www.udacity.com/account/auth#!/signup"
+            
+            // MARK: URLs
+            static let ApiScheme = "https"
+            static let ApiHost = "udacity.com"
+            static let ApiPath = "/api"
+            static let AuthorizationURL : String = "https://www.themoviedb.org/authenticate/"
+        }
+        
+        struct Methods {
+            static let getSessionID = "/session"
+        }
+        
     }
     
 }

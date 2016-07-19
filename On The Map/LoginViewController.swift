@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func signupButtonPressed(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: Constants.URLS.udacitySignupURLString)!)
+        UIApplication.sharedApplication().openURL(NSURL(string: Constants.UdacityURLS.udacitySignupURLString)!)
     }
 
 }
