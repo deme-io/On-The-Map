@@ -22,6 +22,10 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonPressed(sender: AnyObject) {
     }
 
+    @IBAction func signupButtonPressed(sender: AnyObject) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
+
+    }
 
 }
 
