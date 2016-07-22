@@ -21,6 +21,10 @@
 		45B7F4E31D3EDB4300DC66D4 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */; };
 		45B7F4E51D3EE54300DC66D4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E41D3EE54300DC66D4 /* Constants.swift */; };
 		45EF5C391D41F82F00C30CC6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF5C381D41F82F00C30CC6 /* User.swift */; };
+		45EF5C3B1D41FB6D00C30CC6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */; };
+		45EF5C3F1D41FD7100C30CC6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EF5C3C1D41FD7100C30CC6 /* FBSDKCoreKit.framework */; };
+		45EF5C401D41FD7100C30CC6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EF5C3D1D41FD7100C30CC6 /* FBSDKLoginKit.framework */; };
+		45EF5C411D41FD7100C30CC6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EF5C3E1D41FD7100C30CC6 /* FBSDKShareKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +65,10 @@
 		45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		45B7F4E41D3EE54300DC66D4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		45EF5C381D41F82F00C30CC6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		45EF5C3C1D41FD7100C30CC6 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		45EF5C3D1D41FD7100C30CC6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		45EF5C3E1D41FD7100C30CC6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../FBSDKShareKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +76,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EF5C411D41FD7100C30CC6 /* FBSDKShareKit.framework in Frameworks */,
+				45EF5C3B1D41FB6D00C30CC6 /* MapKit.framework in Frameworks */,
+				45EF5C3F1D41FD7100C30CC6 /* FBSDKCoreKit.framework in Frameworks */,
+				45EF5C401D41FD7100C30CC6 /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +123,7 @@
 		450E8D061D3E794E000E8CE3 /* On The Map */ = {
 			isa = PBXGroup;
 			children = (
+				45EF5C421D41FD7900C30CC6 /* Frameworks */,
 				450E8D071D3E794E000E8CE3 /* AppDelegate.swift */,
 				45B7F4E11D3EA89700DC66D4 /* Custom Views */,
 				45B7F4E01D3EA88500DC66D4 /* View Controllers */,
@@ -160,6 +173,17 @@
 				45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */,
 			);
 			name = "Custom Views";
+			sourceTree = "<group>";
+		};
+		45EF5C421D41FD7900C30CC6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */,
+				45EF5C3C1D41FD7100C30CC6 /* FBSDKCoreKit.framework */,
+				45EF5C3D1D41FD7100C30CC6 /* FBSDKLoginKit.framework */,
+				45EF5C3E1D41FD7100C30CC6 /* FBSDKShareKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,6 +467,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "On The Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "DigitalZero.On-The-Map";
@@ -454,6 +482,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "On The Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "DigitalZero.On-The-Map";
