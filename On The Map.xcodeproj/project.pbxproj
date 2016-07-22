@@ -20,6 +20,7 @@
 		45B7F4DD1D3E9FC800DC66D4 /* PaddedLoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4DC1D3E9FC800DC66D4 /* PaddedLoginTextField.swift */; };
 		45B7F4E31D3EDB4300DC66D4 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */; };
 		45B7F4E51D3EE54300DC66D4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E41D3EE54300DC66D4 /* Constants.swift */; };
+		45EF5C391D41F82F00C30CC6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF5C381D41F82F00C30CC6 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		45B7F4DC1D3E9FC800DC66D4 /* PaddedLoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedLoginTextField.swift; sourceTree = "<group>"; };
 		45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		45B7F4E41D3EE54300DC66D4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		45EF5C381D41F82F00C30CC6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				45B7F4E01D3EA88500DC66D4 /* View Controllers */,
 				45B7F4E41D3EE54300DC66D4 /* Constants.swift */,
 				45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */,
+				45EF5C381D41F82F00C30CC6 /* User.swift */,
 				450E8D0B1D3E794E000E8CE3 /* Main.storyboard */,
 				450E8D0E1D3E794E000E8CE3 /* Assets.xcassets */,
 				450E8D101D3E794E000E8CE3 /* LaunchScreen.storyboard */,
@@ -295,6 +298,7 @@
 				45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */,
 				45B7F4DD1D3E9FC800DC66D4 /* PaddedLoginTextField.swift in Sources */,
 				45B7F4E31D3EDB4300DC66D4 /* NetworkClient.swift in Sources */,
+				45EF5C391D41F82F00C30CC6 /* User.swift in Sources */,
 				45B7F4D91D3E9B5A00DC66D4 /* ListViewController.swift in Sources */,
 				450E8D081D3E794E000E8CE3 /* AppDelegate.swift in Sources */,
 				45B7F4E51D3EE54300DC66D4 /* Constants.swift in Sources */,

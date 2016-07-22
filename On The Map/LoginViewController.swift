@@ -11,6 +11,7 @@ import UIKit
 class LoginViewController: UIViewController {
     
     // MARK: Properties
+    var client = NetworkClient.sharedInstance()
     
     @IBOutlet weak var emailTextField: PaddedLoginTextField!
     @IBOutlet weak var passwordTextField: PaddedLoginTextField!
@@ -18,10 +19,22 @@ class LoginViewController: UIViewController {
     
     // MARK: Action Methods
     @IBAction func loginButtonPressed(sender: AnyObject) {
+        
+        client.username = emailTextField.text!
+        client.password = passwordTextField.text!
+        
+        client.authenticateWithViewController(self) { (success, errorString) in
+            if success {
+                dispatch_async(dispatch_get_main_queue()) {
+                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("navigationView") as! UINavigationController
+                    self.presentViewController(controller, animated: true, completion: nil)
+                }
+            }
+        }
     }
 
     @IBAction func signupButtonPressed(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: Constants.UdacityURLS.udacitySignupURLString)!)
+        UIApplication.sharedApplication().openURL(NSURL(string: Constants.UdacityURLS.UdacitySignupURL)!)
     }
 
 }
