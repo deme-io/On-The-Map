@@ -14,6 +14,7 @@ class NetworkClient: NSObject {
     
     var firstName: String?
     var lastName: String?
+    var email: String?
     
     var username: String? = nil
     var password: String? = nil

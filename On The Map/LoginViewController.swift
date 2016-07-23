@@ -15,13 +15,19 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var emailTextField: PaddedLoginTextField!
     @IBOutlet weak var passwordTextField: PaddedLoginTextField!
-    @IBOutlet weak var facebookLoginButton: FBSDKLoginButton!
+    @IBOutlet weak var facebookLoginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureFacebook()
-        facebookLoginButton.delegate = self
+        //facebookLoginButton.readPermissions = ["public_profile", "email"];
+        //facebookLoginButton.delegate = self
+        
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            facebookLoginButton.setTitle("Sign out of Facebook", forState: UIControlState.Normal)
+        } else {
+            facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
+        }
     }
     
     
@@ -46,11 +52,41 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     
-    func configureFacebook()
-    {
-        facebookLoginButton.readPermissions = ["public_profile", "email"];
-        facebookLoginButton.delegate = self
+    @IBAction func facebookLoginButtonPressed(sender: AnyObject) {
+        
+        let login = FBSDKLoginManager()
+        
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
+            login.logOut()
+        } else {
+            login.logInWithReadPermissions(["public_profile"], fromViewController: self) { (result, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else if result.isCancelled {
+                    print("Cancelled")
+                } else {
+                    print("Logged in")
+                    FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, email"]).startWithCompletionHandler { (connection, result, error) -> Void in
+                        self.client.firstName = (result.objectForKey("first_name") as? String)!
+                        self.client.lastName = (result.objectForKey("last_name") as? String)!
+                        self.client.email = (result.objectForKey("email") as? String)!
+                        
+                        print(self.client.firstName!)
+                        print(self.client.lastName!)
+                        print(self.client.email!)
+                    }
+                }
+            }
+            facebookLoginButton.setTitle("Sign out of Facebook", forState: UIControlState.Normal)
+        }
+        
+        
+        
     }
+    
+    
+    // MARK: Facebook Loging Methods
     
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
