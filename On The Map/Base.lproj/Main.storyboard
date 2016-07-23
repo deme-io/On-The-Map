@@ -90,6 +90,14 @@
                                     <action selector="signupButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Bi-2c-kFc"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qr6-WN-yRK" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="20" y="508" width="560" height="45"/>
+                                <color key="backgroundColor" red="0.39029774020953312" green="0.47655473743469523" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="18"/>
+                                <state key="normal" title="Sign in with Facebook">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.53944883507767416" blue="0.15749668189836763" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -106,16 +114,20 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FXb-EJ-59x" secondAttribute="bottom" constant="171" id="MKD-7A-Eo3"/>
                             <constraint firstItem="jto-Ds-Og8" firstAttribute="top" secondItem="Xau-LZ-Sav" secondAttribute="bottom" constant="8" symbolic="YES" id="PAC-3w-Vy7"/>
                             <constraint firstItem="FMa-Qt-vyi" firstAttribute="trailing" secondItem="fLB-ff-vxZ" secondAttribute="trailing" id="PMF-ts-s4h"/>
+                            <constraint firstItem="Qr6-WN-yRK" firstAttribute="top" secondItem="FMa-Qt-vyi" secondAttribute="bottom" constant="79" id="REm-Rh-YLa"/>
                             <constraint firstItem="Xau-LZ-Sav" firstAttribute="trailing" secondItem="jto-Ds-Og8" secondAttribute="trailing" id="VRP-EA-pj1"/>
                             <constraint firstItem="FMa-Qt-vyi" firstAttribute="trailing" secondItem="fLB-ff-vxZ" secondAttribute="trailing" id="ZXJ-qS-FVb"/>
                             <constraint firstItem="FMa-Qt-vyi" firstAttribute="leading" secondItem="FXb-EJ-59x" secondAttribute="trailing" constant="8" symbolic="YES" id="a8v-EW-ltu"/>
                             <constraint firstItem="FXb-EJ-59x" firstAttribute="top" secondItem="FMa-Qt-vyi" secondAttribute="top" id="ab3-BZ-crn"/>
+                            <constraint firstItem="Qr6-WN-yRK" firstAttribute="trailing" secondItem="FMa-Qt-vyi" secondAttribute="trailing" id="bIS-FP-hbb"/>
                             <constraint firstItem="SYd-pz-s9S" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="c0d-cW-IQ6"/>
                             <constraint firstItem="fLB-ff-vxZ" firstAttribute="top" secondItem="jto-Ds-Og8" secondAttribute="bottom" constant="8" symbolic="YES" id="f8d-KV-2ZV"/>
                             <constraint firstItem="SYd-pz-s9S" firstAttribute="top" secondItem="Y2o-Wb-mBk" secondAttribute="bottom" constant="27" id="j12-zI-Jdg"/>
                             <constraint firstItem="Y2o-Wb-mBk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="jEd-Lj-sGD"/>
                             <constraint firstItem="FMa-Qt-vyi" firstAttribute="leading" secondItem="FXb-EJ-59x" secondAttribute="trailing" constant="8" id="oft-nC-hob"/>
+                            <constraint firstItem="Qr6-WN-yRK" firstAttribute="leading" secondItem="FXb-EJ-59x" secondAttribute="leading" id="rfB-wU-phD"/>
                             <constraint firstItem="FXb-EJ-59x" firstAttribute="bottom" secondItem="FMa-Qt-vyi" secondAttribute="bottom" id="vJA-F8-OSD"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Qr6-WN-yRK" secondAttribute="bottom" constant="47" id="yqO-Ds-jnT"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -127,6 +139,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="emailTextField" destination="Xau-LZ-Sav" id="9kx-32-FkZ"/>
+                        <outlet property="facebookLoginButton" destination="Qr6-WN-yRK" id="Sax-Cm-v6V"/>
                         <outlet property="passwordTextField" destination="jto-Ds-Og8" id="Z8N-xc-lNo"/>
                     </connections>
                 </viewController>

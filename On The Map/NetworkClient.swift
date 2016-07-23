@@ -12,6 +12,9 @@ import UIKit
 class NetworkClient: NSObject {
     var session = NSURLSession.sharedSession()
     
+    var firstName: String?
+    var lastName: String?
+    
     var username: String? = nil
     var password: String? = nil
     
