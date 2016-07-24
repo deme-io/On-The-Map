@@ -22,6 +22,9 @@ class ListViewController: UIViewController, UITableViewDelegate {
     
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
+        NetworkClient.sharedInstance().logout()
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("loginView") as! LoginViewController
+        self.presentViewController(controller, animated: true, completion: nil)
     }
     
     

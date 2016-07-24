@@ -20,11 +20,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //facebookLoginButton.readPermissions = ["public_profile", "email"];
         //facebookLoginButton.delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         if (FBSDKAccessToken.currentAccessToken() != nil) {
+            //authenticate()
             facebookLoginButton.setTitle("Sign out of Facebook", forState: UIControlState.Normal)
         } else {
             facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
@@ -85,7 +89,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         client.authenticateWithViewController(self) { (success, errorString) in
             if success {
                 dispatch_async(dispatch_get_main_queue()) {
-                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("navigationView") as! UINavigationController
+                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarView") as! UITabBarController
                     self.presentViewController(controller, animated: true, completion: nil)
                 }
             }
