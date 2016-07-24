@@ -22,16 +22,27 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         //facebookLoginButton.readPermissions = ["public_profile", "email"];
         //facebookLoginButton.delegate = self
+        
+        if facebookTokenVerify() == true {
+            authenticate()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            //authenticate()
+        if facebookTokenVerify() == true {
             facebookLoginButton.setTitle("Sign out of Facebook", forState: UIControlState.Normal)
         } else {
             facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
+        }
+    }
+    
+    func facebookTokenVerify() -> Bool {
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            return true
+        } else {
+            return false
         }
     }
     

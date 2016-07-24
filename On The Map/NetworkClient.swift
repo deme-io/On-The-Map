@@ -24,9 +24,11 @@ class NetworkClient: NSObject {
         for cookie in sharedCookieStorage.cookies! {
             if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
         }
+        
         if let xsrfCookie = xsrfCookie {
             request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
         }
+        
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error…
@@ -59,9 +61,9 @@ class NetworkClient: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        if (currentUser.facebookTokenString != nil) {
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
             print("Using facebook URL")
-            request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(currentUser.facebookTokenString!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+            request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(FBSDKAccessToken.currentAccessToken().tokenString)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         } else {
             print("Using udacity URL")
             request.HTTPBody = "{\"udacity\": {\"username\": \"\(currentUser.username!)\", \"password\": \"\(currentUser.password!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
