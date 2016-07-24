@@ -13,6 +13,18 @@ class NetworkClient: NSObject {
     var session = NSURLSession.sharedSession()
     var currentUser = CurrentUser.sharedInstance()
     
+    
+    func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
+        
+        getSessionAndUserID { (success, sessionID, errorString) in
+            if success {
+                completionHandlerForAuth(success: success, errorString: errorString)
+            }
+        }
+    }
+    
+    // MARK: Network Methods
+    
     func logout() {
         FBSDKLoginManager().logOut()
         
@@ -41,18 +53,6 @@ class NetworkClient: NSObject {
         
         print("Logged out")
     }
-    
-    
-    func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
-        
-        getSessionAndUserID { (success, sessionID, errorString) in
-            if success {
-                completionHandlerForAuth(success: success, errorString: errorString)
-            }
-        }
-    }
-    
-    // MARK: Network Methods
     
     private func getSessionAndUserID(completionHandlerForSession: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
         
