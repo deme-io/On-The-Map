@@ -10,7 +10,6 @@ import UIKit
 
 class LocationTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var locationLabel: UIView!
-    
+    @IBOutlet weak var nameLabel: UILabel!
     
 }

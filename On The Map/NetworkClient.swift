@@ -12,6 +12,7 @@ import UIKit
 class NetworkClient: NSObject {
     var session = NSURLSession.sharedSession()
     var currentUser = CurrentUser.sharedInstance()
+    var results = []
     
     
     func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
@@ -52,6 +53,31 @@ class NetworkClient: NSObject {
         task.resume()
         
         print("Logged out")
+    }
+    
+    func getStudentLocations(hostViewController: UIViewController, completionHandlerForAuth: (data: AnyObject, errorString: String?) -> Void) {
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100")!)
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil { // Handle error...
+                return
+            }
+            
+            var parsedResult: AnyObject!
+            do {
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+            } catch {
+                print("Could not parse JSON data: \(data!)")
+            }
+            
+            print(parsedResult)
+            
+            completionHandlerForAuth(data: parsedResult, errorString: error?.localizedDescription)
+        }
+        task.resume()
     }
     
     private func getSessionAndUserID(completionHandlerForSession: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
@@ -120,12 +146,9 @@ class NetworkClient: NSObject {
     
     
     // TODO: Finish taskForPOSTMethod
+    // MARK: Task for POST Method
     
-    
-    
-    // MARK: Task for GET Method
-    
-    func taskForPOSTMethod(method: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    private func taskForPOSTMethod(method: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* 1. Set the parameters */
         var parametersWithApiKey = parameters
@@ -177,7 +200,7 @@ class NetworkClient: NSObject {
     
     
     // given raw JSON, return a usable Foundation object
-    func convertDataWithCompletionHandler(data: NSData, completionHandlerForConvertData: (result: AnyObject!, error: NSError?) -> Void) {
+    private func convertDataWithCompletionHandler(data: NSData, completionHandlerForConvertData: (result: AnyObject!, error: NSError?) -> Void) {
         
         var parsedResult: AnyObject!
         do {
@@ -191,7 +214,7 @@ class NetworkClient: NSObject {
     }
     
     
-    func udacityURLFromParameters(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
+    private func udacityURLFromParameters(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
         
         let components = NSURLComponents()
         components.scheme = Constants.UdacityURLS.ApiScheme

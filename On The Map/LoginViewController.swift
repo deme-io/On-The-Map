@@ -17,15 +17,22 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var emailTextField: PaddedLoginTextField!
     @IBOutlet weak var passwordTextField: PaddedLoginTextField!
     @IBOutlet weak var facebookLoginButton: UIButton!
+    @IBOutlet weak var visualBlur: UIVisualEffectView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //facebookLoginButton.readPermissions = ["public_profile", "email"];
         //facebookLoginButton.delegate = self
+        loading()
         
         if facebookTokenVerify() == true {
+            currentUser.facebookTokenString = FBSDKAccessToken.currentAccessToken().tokenString
+            loading()
             authenticate()
         }
+        visualBlur.hidden = true
+        activityIndicator.hidden = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -36,6 +43,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         } else {
             facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
         }
+        
+        
+    }
+    
+    func loading() {
+        visualBlur.hidden = false
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
     }
     
     func facebookTokenVerify() -> Bool {
@@ -52,6 +67,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         currentUser.username = emailTextField.text!
         currentUser.password = passwordTextField.text!
+        loading()
         
         authenticate()
     }
@@ -62,6 +78,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     
     @IBAction func facebookLoginButtonPressed(sender: AnyObject) {
+        loading()
         
         let login = FBSDKLoginManager()
         
