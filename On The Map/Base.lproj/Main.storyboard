@@ -82,7 +82,7 @@
                                     <action selector="facebookLoginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PKX-4B-66b"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n0k-Md-8gn">
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZU-GO-GNb">
                                 <rect key="frame" x="182" y="401" width="236" height="28"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FXb-EJ-59x">
@@ -126,14 +126,18 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="FMa-Qt-vyi" firstAttribute="leading" secondItem="FXb-EJ-59x" secondAttribute="trailing" constant="10" id="pdf-hY-39K"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.53944883507767416" blue="0.15749668189836763" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Qr6-WN-yRK" firstAttribute="top" secondItem="n0k-Md-8gn" secondAttribute="bottom" constant="79" id="033-70-WiO"/>
                             <constraint firstItem="Xau-LZ-Sav" firstAttribute="top" secondItem="SYd-pz-s9S" secondAttribute="bottom" constant="8" symbolic="YES" id="0gD-hj-2ih"/>
+                            <constraint firstItem="mZU-GO-GNb" firstAttribute="top" secondItem="fLB-ff-vxZ" secondAttribute="bottom" constant="8" symbolic="YES" id="1WR-oy-z4W"/>
                             <constraint firstItem="SYd-pz-s9S" firstAttribute="trailing" secondItem="Xau-LZ-Sav" secondAttribute="trailing" id="1s1-ct-Txz"/>
                             <constraint firstItem="fLB-ff-vxZ" firstAttribute="leading" secondItem="jto-Ds-Og8" secondAttribute="leading" id="4Se-hJ-w3a"/>
+                            <constraint firstItem="Qr6-WN-yRK" firstAttribute="top" secondItem="mZU-GO-GNb" secondAttribute="bottom" constant="79" id="9SS-TM-hUb"/>
                             <constraint firstItem="SYd-pz-s9S" firstAttribute="leading" secondItem="Xau-LZ-Sav" secondAttribute="leading" id="9ci-Qt-VzU"/>
                             <constraint firstItem="Qr6-WN-yRK" firstAttribute="leading" secondItem="fLB-ff-vxZ" secondAttribute="leading" id="Emf-oY-ibg"/>
                             <constraint firstItem="Y2o-Wb-mBk" firstAttribute="centerX" secondItem="SYd-pz-s9S" secondAttribute="centerX" id="IDj-pv-bjP"/>
@@ -141,13 +145,12 @@
                             <constraint firstItem="SYd-pz-s9S" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KgU-5i-UvX"/>
                             <constraint firstItem="Xau-LZ-Sav" firstAttribute="leading" secondItem="jto-Ds-Og8" secondAttribute="leading" id="Kqc-ZS-Xh3"/>
                             <constraint firstItem="jto-Ds-Og8" firstAttribute="top" secondItem="Xau-LZ-Sav" secondAttribute="bottom" constant="8" symbolic="YES" id="PAC-3w-Vy7"/>
+                            <constraint firstItem="mZU-GO-GNb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Q76-0Y-Fwh"/>
                             <constraint firstItem="Xau-LZ-Sav" firstAttribute="trailing" secondItem="jto-Ds-Og8" secondAttribute="trailing" id="VRP-EA-pj1"/>
                             <constraint firstItem="SYd-pz-s9S" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="c0d-cW-IQ6"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Qr6-WN-yRK" secondAttribute="bottom" constant="47" id="epJ-Up-YFO"/>
                             <constraint firstItem="fLB-ff-vxZ" firstAttribute="top" secondItem="jto-Ds-Og8" secondAttribute="bottom" constant="8" symbolic="YES" id="f8d-KV-2ZV"/>
-                            <constraint firstItem="n0k-Md-8gn" firstAttribute="top" secondItem="fLB-ff-vxZ" secondAttribute="bottom" constant="8" symbolic="YES" id="fit-hu-SzN"/>
                             <constraint firstItem="Qr6-WN-yRK" firstAttribute="trailing" secondItem="fLB-ff-vxZ" secondAttribute="trailing" id="hUM-Jy-MPF"/>
-                            <constraint firstItem="n0k-Md-8gn" firstAttribute="centerX" secondItem="fLB-ff-vxZ" secondAttribute="centerX" id="iwU-59-AtL"/>
                             <constraint firstItem="SYd-pz-s9S" firstAttribute="top" secondItem="Y2o-Wb-mBk" secondAttribute="bottom" constant="27" id="j12-zI-Jdg"/>
                             <constraint firstItem="Y2o-Wb-mBk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="jEd-Lj-sGD"/>
                         </constraints>
