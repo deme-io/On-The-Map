@@ -26,6 +26,8 @@
 		45EF5C4F1D441FBD00C30CC6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EF5C4C1D441FBD00C30CC6 /* FBSDKLoginKit.framework */; };
 		45EF5C501D441FBD00C30CC6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EF5C4D1D441FBD00C30CC6 /* FBSDKShareKit.framework */; };
 		45EF5C521D44213E00C30CC6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EF5C511D44213E00C30CC6 /* Bolts.framework */; };
+		45EF5C551D44CFF000C30CC6 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF5C541D44CFF000C30CC6 /* Student.swift */; };
+		45EF5C571D44D65D00C30CC6 /* Students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF5C561D44D65D00C30CC6 /* Students.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		45EF5C4C1D441FBD00C30CC6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		45EF5C4D1D441FBD00C30CC6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		45EF5C511D44213E00C30CC6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		45EF5C541D44CFF000C30CC6 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		45EF5C561D44D65D00C30CC6 /* Students.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Students.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +200,8 @@
 				45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */,
 				45B7F4E41D3EE54300DC66D4 /* Constants.swift */,
 				45EF5C381D41F82F00C30CC6 /* CurrentUser.swift */,
+				45EF5C541D44CFF000C30CC6 /* Student.swift */,
+				45EF5C561D44D65D00C30CC6 /* Students.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -334,10 +340,12 @@
 				450E8D0A1D3E794E000E8CE3 /* LoginViewController.swift in Sources */,
 				45B7F4DB1D3E9D4300DC66D4 /* LocationTableViewCell.swift in Sources */,
 				45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */,
+				45EF5C551D44CFF000C30CC6 /* Student.swift in Sources */,
 				45B7F4DD1D3E9FC800DC66D4 /* PaddedLoginTextField.swift in Sources */,
 				45B7F4E31D3EDB4300DC66D4 /* NetworkClient.swift in Sources */,
 				45EF5C391D41F82F00C30CC6 /* CurrentUser.swift in Sources */,
 				45B7F4D91D3E9B5A00DC66D4 /* ListTableViewController.swift in Sources */,
+				45EF5C571D44D65D00C30CC6 /* Students.swift in Sources */,
 				450E8D081D3E794E000E8CE3 /* AppDelegate.swift in Sources */,
 				45B7F4E51D3EE54300DC66D4 /* Constants.swift in Sources */,
 			);

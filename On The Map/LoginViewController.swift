@@ -39,6 +39,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewWillAppear(animated)
         
         if facebookTokenVerify() == true {
+            loading()
             facebookLoginButton.setTitle("Sign out of Facebook", forState: UIControlState.Normal)
         } else {
             facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
@@ -73,7 +74,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
 
     @IBAction func signupButtonPressed(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: Constants.UdacityURLS.UdacitySignupURL)!)
+        UIApplication.sharedApplication().openURL(NSURL(string: Constants.UdacityURLS.SignupURL)!)
     }
     
     

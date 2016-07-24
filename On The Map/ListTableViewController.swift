@@ -16,19 +16,19 @@ class ListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        reloadData()
+    }
+    
+    func reloadData () {
         NetworkClient.sharedInstance().getStudentLocations(self) { (data, errorString) in
             if errorString == nil {
                 self.data = (data["results"] as! NSArray) as Array
             }
             dispatch_async(dispatch_get_main_queue()) {
-                self.reloadData()
+                self.tableView.reloadData()
             }
         }
         
-    }
-    
-    func reloadData () {
-        tableView.reloadData()
     }
     
     
