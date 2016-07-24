@@ -11,16 +11,7 @@ import UIKit
 
 class NetworkClient: NSObject {
     var session = NSURLSession.sharedSession()
-    
-    var firstName: String?
-    var lastName: String?
-    var email: String?
-    
-    var username: String? = nil
-    var password: String? = nil
-    
-    var sessionID : String? = nil
-    var userID : String?
+    var currentUser = CurrentUser.sharedInstance()
     
     
     func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
@@ -32,7 +23,7 @@ class NetworkClient: NSObject {
         }
     }
     
-    // MARK: Udacity Network Methods
+    // MARK: Network Methods
     
     private func getSessionAndUserID(completionHandlerForSession: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
         
@@ -40,7 +31,15 @@ class NetworkClient: NSObject {
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"udacity\": {\"username\": \"\(username!)\", \"password\": \"\(password!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        
+        if (currentUser.facebookTokenString != nil) {
+            print("Using facebook URL")
+            request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(currentUser.facebookTokenString!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        } else {
+            print("Using udacity URL")
+            request.HTTPBody = "{\"udacity\": {\"username\": \"\(currentUser.username!)\", \"password\": \"\(currentUser.password!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        }
+        
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             // if an error occurs, print it and re-enable the UI
@@ -57,6 +56,7 @@ class NetworkClient: NSObject {
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                 displayError("Your request returned a status code other than 2xx!")
+                print((response as? NSHTTPURLResponse)?.statusCode)
                 return
             }
             
@@ -76,14 +76,14 @@ class NetworkClient: NSObject {
             }
             
             if let parsedSession = parsedResult["session"] as? NSDictionary {
-                self.sessionID = parsedSession["id"]! as? String
+                self.currentUser.sessionID = parsedSession["id"]! as? String
             }
             
             if let parsedAccount = parsedResult["account"] as? NSDictionary {
-                self.userID = parsedAccount["key"]! as? String
+                self.currentUser.userID = parsedAccount["key"]! as? String
             }
             
-            completionHandlerForSession(success: true, sessionID: self.sessionID, errorString: "\(error)")
+            completionHandlerForSession(success: true, sessionID: self.currentUser.sessionID, errorString: "\(error)")
         }
         task.resume()
     }

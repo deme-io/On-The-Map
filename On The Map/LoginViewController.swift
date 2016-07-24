@@ -12,6 +12,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     // MARK: Properties
     var client = NetworkClient.sharedInstance()
+    var currentUser = CurrentUser.sharedInstance()
     
     @IBOutlet weak var emailTextField: PaddedLoginTextField!
     @IBOutlet weak var passwordTextField: PaddedLoginTextField!
@@ -34,17 +35,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     // MARK: Action Methods
     @IBAction func loginButtonPressed(sender: AnyObject) {
         
-        client.username = emailTextField.text!
-        client.password = passwordTextField.text!
+        currentUser.username = emailTextField.text!
+        currentUser.password = passwordTextField.text!
         
-        client.authenticateWithViewController(self) { (success, errorString) in
-            if success {
-                dispatch_async(dispatch_get_main_queue()) {
-                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("navigationView") as! UINavigationController
-                    self.presentViewController(controller, animated: true, completion: nil)
-                }
-            }
-        }
+        authenticate()
     }
 
     @IBAction func signupButtonPressed(sender: AnyObject) {
@@ -68,21 +62,34 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 } else {
                     print("Logged in")
                     FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, email"]).startWithCompletionHandler { (connection, result, error) -> Void in
-                        self.client.firstName = (result.objectForKey("first_name") as? String)!
-                        self.client.lastName = (result.objectForKey("last_name") as? String)!
-                        self.client.email = (result.objectForKey("email") as? String)!
+                        self.currentUser.firstName = (result.objectForKey("first_name") as? String)!
+                        self.currentUser.lastName = (result.objectForKey("last_name") as? String)!
+                        self.currentUser.email = (result.objectForKey("email") as? String)!
+                        self.currentUser.facebookTokenString = FBSDKAccessToken.currentAccessToken().tokenString
                         
-                        print(self.client.firstName!)
-                        print(self.client.lastName!)
-                        print(self.client.email!)
+                        print(self.currentUser.firstName!)
+                        print(self.currentUser.lastName!)
+                        print(self.currentUser.email!)
+                        print(FBSDKAccessToken.currentAccessToken().tokenString)
+                        
+                        self.authenticate()
                     }
                 }
             }
             facebookLoginButton.setTitle("Sign out of Facebook", forState: UIControlState.Normal)
         }
-        
-        
-        
+    }
+    
+    
+    func authenticate() {
+        client.authenticateWithViewController(self) { (success, errorString) in
+            if success {
+                dispatch_async(dispatch_get_main_queue()) {
+                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("navigationView") as! UINavigationController
+                    self.presentViewController(controller, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     
@@ -92,8 +99,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
         FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name"]).startWithCompletionHandler { (connection, result, error) -> Void in
-            self.client.firstName = (result.objectForKey("first_name") as? String)!
-            self.client.lastName = (result.objectForKey("last_name") as? String)!
+            self.currentUser.firstName = (result.objectForKey("first_name") as? String)!
+            self.currentUser.lastName = (result.objectForKey("last_name") as? String)!
             }
     }
     

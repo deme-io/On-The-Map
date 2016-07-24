@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  CurrentUser.swift
 //  On The Map
 //
 //  Created by Demetrius Henry on 7/21/16.
@@ -8,19 +8,21 @@
 
 import Foundation
 
-class User {
+class CurrentUser {
     var firstName: String?
     var lastName: String?
+    var email: String?
     
     var username: String? = nil
     var password: String? = nil
     
     var sessionID : String? = nil
     var userID : String?
+    var facebookTokenString: String?
     
-    class func sharedInstance() -> User {
+    class func sharedInstance() -> CurrentUser {
         struct Singleton {
-            static var sharedInstance = User()
+            static var sharedInstance = CurrentUser()
         }
         return Singleton.sharedInstance
     }
