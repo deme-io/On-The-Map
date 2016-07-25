@@ -26,8 +26,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         //facebookLoginButton.delegate = self
         loading()
         
-        if facebookTokenVerify() == true {
-            currentUser.facebookTokenString = FBSDKAccessToken.currentAccessToken().tokenString
+        if client.checkIfUserIsLoggedIn() == true {
+            if FBSDKAccessToken.currentAccessToken().tokenString != nil {
+                currentUser.facebookTokenString = FBSDKAccessToken.currentAccessToken().tokenString
+            }
             loading()
             authenticate()
         }
@@ -38,28 +40,18 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if facebookTokenVerify() == true {
+        if client.checkIfUserIsLoggedIn() == true {
             loading()
             facebookLoginButton.setTitle("Sign out of Facebook", forState: UIControlState.Normal)
         } else {
             facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
         }
-        
-        
     }
     
     func loading() {
         visualBlur.hidden = false
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
-    }
-    
-    func facebookTokenVerify() -> Bool {
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            return true
-        } else {
-            return false
-        }
     }
     
     
@@ -118,8 +110,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         client.authenticateWithViewController(self) { (success, errorString) in
             if success {
                 dispatch_async(dispatch_get_main_queue()) {
-                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarView") as! UITabBarController
-                    self.presentViewController(controller, animated: true, completion: nil)
+                    self.dismissViewControllerAnimated(true, completion: nil)
                 }
             }
         }

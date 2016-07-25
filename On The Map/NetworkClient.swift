@@ -27,6 +27,7 @@ class NetworkClient: NSObject {
     // MARK: Network Methods
     
     func logout() {
+        currentUser.sessionID = nil
         FBSDKLoginManager().logOut()
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
@@ -53,6 +54,14 @@ class NetworkClient: NSObject {
         task.resume()
         
         print("Logged out")
+    }
+    
+    func checkIfUserIsLoggedIn() -> Bool {
+        if (FBSDKAccessToken.currentAccessToken() != nil) || currentUser.sessionID != nil {
+            return true
+        } else {
+            return false
+        }
     }
     
     func getStudentLocations(hostViewController: UIViewController, completionHandlerForAuth: (data: AnyObject, errorString: String?) -> Void) {
@@ -132,6 +141,7 @@ class NetworkClient: NSObject {
             
             if let parsedSession = parsedResult["session"] as? NSDictionary {
                 self.currentUser.sessionID = parsedSession["id"]! as? String
+                print(self.currentUser.sessionID)
             }
             
             if let parsedAccount = parsedResult["account"] as? NSDictionary {
