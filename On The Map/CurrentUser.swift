@@ -36,6 +36,7 @@ class CurrentUser: NSObject, MKAnnotation {
     
     
     
+    
     // MARK: ===== Singleton =====
     
     class func sharedInstance() -> CurrentUser {

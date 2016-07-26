@@ -12,24 +12,89 @@ import MapKit
 
 class NetworkClient: NSObject {
     
+    // MARK: ===== Properties =====
+    
     var session = NSURLSession.sharedSession()
     var currentUser = CurrentUser.sharedInstance()
     var students = [Student]()
     
     
+    
+    // MARK: ===== Authentication Sequence =====
+    
     func authenticateUser(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
         
         getSessionAndUserID { (success, sessionID, errorString) in
-            if success {
-                completionHandlerForAuth(success: success, errorString: errorString)
-            } else {
-                completionHandlerForAuth(success: success, errorString: errorString)
-            }
-            
+            completionHandlerForAuth(success: success, errorString: errorString)
         }
     }
     
-    // MARK: Network Methods
+    
+    
+    private func getSessionAndUserID(completionHandlerForSession: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(FBSDKAccessToken.currentAccessToken().tokenString)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        } else {
+            request.HTTPBody = "{\"udacity\": {\"username\": \"\(currentUser.email!)\", \"password\": \"\(currentUser.password!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        }
+        
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            func forwardError(errorString: String) {
+                completionHandlerForSession(success: false, sessionID: nil, errorString: "\(errorString)")
+            }
+            
+            // GUARD: Was there an error?
+            guard (error == nil) else {
+                forwardError("There was an error with your request: \(error)")
+                return
+            }
+            
+            // GUARD: Did we get a successful 2XX response?
+            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                forwardError("Your request returned a status code other than 2xx!")
+                print((response as? NSHTTPURLResponse)?.statusCode)
+                return
+            }
+            
+            /* GUARD: Was there any data returned? */
+            guard let data = data else {
+                forwardError("No data was returned by the request!")
+                return
+            }
+            
+            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+            
+            var parsedResult: AnyObject!
+            do {
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+            } catch {
+                print("Could not parse JSON data: \(newData)")
+            }
+            
+            if let parsedSession = parsedResult["session"] as? NSDictionary {
+                self.currentUser.sessionID = parsedSession["id"]! as? String
+            }
+            
+            if let parsedAccount = parsedResult["account"] as? NSDictionary {
+                self.currentUser.userID = parsedAccount["key"]! as? String
+            }
+            
+            completionHandlerForSession(success: true, sessionID: self.currentUser.sessionID, errorString: "\(error)")
+        }
+        task.resume()
+    }
+    
+    
+    
+    
+    
+    // MARK: ===== Log In / Log Out Methods =====
     
     func logout() {
         currentUser.sessionID = nil
@@ -70,9 +135,16 @@ class NetworkClient: NSObject {
         }
     }
     
+    
+    
+    
+    
+    
+    // MARK: ===== Data Methods =====
+    
     func loadStudents(hostViewController: UIViewController, completionHandlerForAuth: (data: [Student], errorString: String?) -> Void) {
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100&order=updatedAt")!)
         request.addValue(Constants.Parse.ApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(Constants.Parse.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
 
@@ -106,71 +178,12 @@ class NetworkClient: NSObject {
         task.resume()
     }
     
-    private func getSessionAndUserID(completionHandlerForSession: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
-        
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(FBSDKAccessToken.currentAccessToken().tokenString)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        } else {
-            request.HTTPBody = "{\"udacity\": {\"username\": \"\(currentUser.email!)\", \"password\": \"\(currentUser.password!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        }
-        
-        
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            // if an error occurs, print it and re-enable the UI
-            func forwardError(errorString: String) {
-                completionHandlerForSession(success: false, sessionID: nil, errorString: "\(errorString)")
-            }
-            
-            /* GUARD: Was there an error? */
-            guard (error == nil) else {
-                forwardError("There was an error with your request: \(error)")
-                return
-            }
-            
-            /* GUARD: Did we get a successful 2XX response? */
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                forwardError("Your request returned a status code other than 2xx!")
-                print((response as? NSHTTPURLResponse)?.statusCode)
-                return
-            }
-            
-            /* GUARD: Was there any data returned? */
-            guard let data = data else {
-                forwardError("No data was returned by the request!")
-                return
-            }
-            
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            
-            var parsedResult: AnyObject!
-            do {
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
-            } catch {
-                print("Could not parse JSON data: \(newData)")
-            }
-            
-            if let parsedSession = parsedResult["session"] as? NSDictionary {
-                self.currentUser.sessionID = parsedSession["id"]! as? String
-            }
-            
-            if let parsedAccount = parsedResult["account"] as? NSDictionary {
-                self.currentUser.userID = parsedAccount["key"]! as? String
-            }
-            
-            completionHandlerForSession(success: true, sessionID: self.currentUser.sessionID, errorString: "\(error)")
-        }
-        task.resume()
-    }
+    
+    
 
     
     
-    // TODO: Finish taskForPOSTMethod
-    // MARK: Task for POST Method
+    // MARK: ===== POST Method =====
     
     private func taskForPOSTMethod(method: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
@@ -223,7 +236,13 @@ class NetworkClient: NSObject {
     }
     
     
-    // given raw JSON, return a usable Foundation object
+    
+    
+    
+    
+    
+    // MARK: ===== Helper Methods =====
+    
     private func convertDataWithCompletionHandler(data: NSData, completionHandlerForConvertData: (result: AnyObject!, error: NSError?) -> Void) {
         
         var parsedResult: AnyObject!
@@ -236,6 +255,8 @@ class NetworkClient: NSObject {
         
         completionHandlerForConvertData(result: parsedResult, error: nil)
     }
+    
+    
     
     
     private func udacityURLFromParameters(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
@@ -255,31 +276,6 @@ class NetworkClient: NSObject {
     }
     
     
-    func forwardGeocoding(address: String) {
-        CLGeocoder().geocodeAddressString(address, completionHandler: { (placemarks, error) in
-            if error != nil {
-                print(error)
-                return
-            }
-            
-            if let placemarks = placemarks {
-                if placemarks.count > 0 {
-                    let placemark = placemarks[0]
-                    if let location = placemark.location {
-                        let coordinate = location.coordinate
-                        self.currentUser.coordinate = coordinate
-                        print("\nlat: \(self.currentUser.coordinate.latitude), long: \(self.currentUser.coordinate.longitude)")
-                    }
-                    if placemark.areasOfInterest?.count > 0 {
-                        let areaOfInterest = placemark.areasOfInterest![0]
-                        print(areaOfInterest)
-                    } else {
-                        print("No area of interest found.")
-                    }
-                }
-            }
-        })
-    }
     
     
     class func sharedInstance() -> NetworkClient {

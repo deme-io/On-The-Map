@@ -10,6 +10,9 @@ import Foundation
 import MapKit
 
 class Student: NSObject, MKAnnotation {
+    
+    // MARK: ===== Properties =====
+    
     var firstName: String?
     var lastName: String?
     
@@ -42,6 +45,12 @@ class Student: NSObject, MKAnnotation {
             return ""
         }
     }
+    
+    
+    
+    
+    
+    // MARK: ===== Init Method =====
     
     init(firstName: String, lastName: String, mapString: String, mediaURL: String, objectID: String, uniqueKey: String, latitude: Double, longitude: Double) {
         super.init()

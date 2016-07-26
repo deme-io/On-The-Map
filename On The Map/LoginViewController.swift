@@ -10,7 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButtonDelegate {
     
-    // MARK: Properties
+    // MARK: ===== Properties =====
+    
     var client = NetworkClient.sharedInstance()
     var currentUser = CurrentUser.sharedInstance()
     
@@ -24,7 +25,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     
     
     
-    // MARK: View Methods
+    // MARK: ===== View Methods =====
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,7 +44,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     
     
     
-    // MARK: Loading Visual Methods
+    // MARK: ===== Visual Methods =====
+    
     func startLoadingVisual() {
         visualBlur.hidden = false
         activityIndicator.hidden = false
@@ -60,8 +63,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     
     
     
-    // MARK: IBAction Methods
+    // MARK: ===== IBAction Methods =====
+    
     @IBAction func loginButtonPressed(sender: AnyObject) {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
         logIn()
     }
 
@@ -105,7 +111,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     
     
     
-    // MARK: TextField Delegate Methods
+    // MARK: ===== TextField Delegate Methods =====
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         logIn()
         textField.resignFirstResponder()
@@ -118,7 +125,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     
     
     
-    // MARK: Network Methods
+    // MARK: ===== Network Methods =====
+    
     func authenticate() {
         startLoadingVisual()
         if Reachability.isConnectedToNetwork() {
@@ -163,7 +171,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     }
     
     
-    // MARK: Logic Methods
+    
+    
+    
+    
+    // MARK: ===== Logic Methods =====
+    
     func isValidEmail(testStr:String) -> Bool {
         // print("validate calendar: \(testStr)")
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
@@ -177,7 +190,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     
     
     
-    // MARK: Facebook Delegate Methods
+    // MARK: ===== Facebook Delegate Methods =====x
+    
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
         FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name"]).startWithCompletionHandler { (connection, result, error) -> Void in

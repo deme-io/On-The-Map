@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="udacity logo" translatesAutoresizingMaskIntoConstraints="NO" id="Y2o-Wb-mBk">
-                                <rect key="frame" x="225" y="28" width="150" height="157"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="udacity logo" translatesAutoresizingMaskIntoConstraints="NO" id="Y2o-Wb-mBk">
+                                <rect key="frame" x="225" y="28" width="150" height="169"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="ix7-kE-7Ea"/>
                                 </constraints>
@@ -177,7 +177,7 @@
                             <constraint firstItem="fLB-ff-vxZ" firstAttribute="top" secondItem="jto-Ds-Og8" secondAttribute="bottom" constant="8" symbolic="YES" id="f8d-KV-2ZV"/>
                             <constraint firstItem="3Cc-qZ-eN2" firstAttribute="centerX" secondItem="Qr6-WN-yRK" secondAttribute="centerX" id="gQW-zD-pSK"/>
                             <constraint firstItem="Qr6-WN-yRK" firstAttribute="trailing" secondItem="fLB-ff-vxZ" secondAttribute="trailing" id="hUM-Jy-MPF"/>
-                            <constraint firstItem="SYd-pz-s9S" firstAttribute="top" secondItem="Y2o-Wb-mBk" secondAttribute="bottom" constant="20" id="j12-zI-Jdg"/>
+                            <constraint firstItem="SYd-pz-s9S" firstAttribute="top" secondItem="Y2o-Wb-mBk" secondAttribute="bottom" constant="8" symbolic="YES" id="j12-zI-Jdg"/>
                             <constraint firstItem="Y2o-Wb-mBk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="jEd-Lj-sGD"/>
                             <constraint firstItem="3Cc-qZ-eN2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mfd-iV-cXb"/>
                         </constraints>

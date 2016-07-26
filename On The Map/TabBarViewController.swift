@@ -9,6 +9,8 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
+    
+    // MARK: ==== View Methods =====
         
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)

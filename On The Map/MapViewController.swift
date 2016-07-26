@@ -11,9 +11,15 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
-    var students = [Student]()
+    // MARK: ===== Properties =====
     
+    var students = [Student]()
     @IBOutlet weak var mapView: MKMapView!
+    
+    
+    
+    
+    // MARK: ===== View Methods =====
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +29,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.addAnnotations(students)
         mapView.showAnnotations(students, animated: true)
     }
+    
+    
+    
+    
+    
+    
+    // MARK: ===== Data Methods =====
     
     func loadData() {
         let temp = students
@@ -41,6 +54,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
+    
+    
+    
+    
+    // MARK: ===== IBAction Methods =====
+    
     @IBAction func reloadButtonPressed(sender: AnyObject) {
         loadData()
     }
@@ -54,6 +73,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let controller = storyboard!.instantiateViewControllerWithIdentifier("loginView") as! LoginViewController
         presentViewController(controller, animated: true, completion: nil)
     }
+    
+    
+    
+    
+    
+    // MARK: ===== MapView Methods =====
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? Student {

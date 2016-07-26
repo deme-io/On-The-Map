@@ -25,8 +25,9 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
         
         locationTextField.delegate = self
         mapView.delegate = self
-        
     }
+    
+    
     
     
     
@@ -73,8 +74,9 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
         mapView.setRegion(region, animated: true)
         mapView.addAnnotation(currentUser)
         mapView.selectAnnotation(mapView.annotations[0], animated: true)
-
     }
+    
+    
     
     
     
@@ -97,7 +99,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                 self.presentAlert("No location found", message: "Please check the location entered")
                 return
             }
-            
             if let placemarks = placemarks {
                 if placemarks.count > 0 {
                     let placemark = placemarks[0]
@@ -116,6 +117,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
             }
         })
     }
+    
     
     
     
