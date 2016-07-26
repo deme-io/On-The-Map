@@ -30,12 +30,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if errorString != nil {
                 print(errorString)
             } else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.mapView.removeAnnotations(self.students)
-                })
                 self.students = []
                 self.students = data
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.mapView.removeAnnotations(temp)
                     self.mapView.addAnnotations(self.students)
                 })
             }
