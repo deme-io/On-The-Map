@@ -18,7 +18,7 @@ class NetworkClient: NSObject {
     //var results = []
     
     
-    func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
+    func authenticateUser(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
         
         getSessionAndUserID { (success, sessionID, errorString) in
             if success {
@@ -59,6 +59,9 @@ class NetworkClient: NSObject {
     
     func checkIfUserIsLoggedIn() -> Bool {
         if (FBSDKAccessToken.currentAccessToken() != nil) || currentUser.sessionID != nil {
+            if FBSDKAccessToken.currentAccessToken().tokenString != nil {
+                currentUser.facebookTokenString = FBSDKAccessToken.currentAccessToken().tokenString
+            }
             return true
         } else {
             return false
@@ -109,7 +112,7 @@ class NetworkClient: NSObject {
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(FBSDKAccessToken.currentAccessToken().tokenString)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         } else {
-            request.HTTPBody = "{\"udacity\": {\"username\": \"\(currentUser.username!)\", \"password\": \"\(currentUser.password!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+            request.HTTPBody = "{\"udacity\": {\"username\": \"\(currentUser.email!)\", \"password\": \"\(currentUser.password!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         }
         
         

@@ -11,9 +11,8 @@ import Foundation
 class CurrentUser {
     var firstName: String?
     var lastName: String?
-    var email: String?
     
-    var username: String? = nil
+    var email: String?
     var password: String? = nil
     
     var sessionID : String? = nil

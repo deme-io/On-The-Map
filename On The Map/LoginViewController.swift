@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButtonDelegate {
     
     // MARK: Properties
     var client = NetworkClient.sharedInstance()
@@ -20,58 +20,59 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var visualBlur: UIVisualEffectView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    
+    
+    
+    
+    // MARK: View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        //facebookLoginButton.readPermissions = ["public_profile", "email"];
-        //facebookLoginButton.delegate = self
-        loading()
+        
+        stopLoadingVisual()
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
         if client.checkIfUserIsLoggedIn() == true {
-            if FBSDKAccessToken.currentAccessToken().tokenString != nil {
-                currentUser.facebookTokenString = FBSDKAccessToken.currentAccessToken().tokenString
-            }
-            loading()
             authenticate()
         }
-        visualBlur.hidden = true
-        activityIndicator.hidden = true
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         
-        if client.checkIfUserIsLoggedIn() == true {
-            loading()
-            facebookLoginButton.setTitle("Sign out of Facebook", forState: UIControlState.Normal)
-        } else {
-            facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
-        }
     }
     
-    func loading() {
+    
+    
+    
+    // MARK: Loading Visual Methods
+    func startLoadingVisual() {
         visualBlur.hidden = false
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
     }
     
     
-    // MARK: Action Methods
+    func stopLoadingVisual() {
+        visualBlur.hidden = true
+        activityIndicator.hidden = true
+        activityIndicator.stopAnimating()
+    }
+    
+    
+    
+    
+    
+    // MARK: IBAction Methods
     @IBAction func loginButtonPressed(sender: AnyObject) {
-        
-        currentUser.username = emailTextField.text!
-        currentUser.password = passwordTextField.text!
-        loading()
-        
-        authenticate()
+        logIn()
     }
 
+    
     @IBAction func signupButtonPressed(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: Constants.UdacityURLS.SignupURL)!)
     }
     
     
     @IBAction func facebookLoginButtonPressed(sender: AnyObject) {
-        loading()
+        startLoadingVisual()
         
         let login = FBSDKLoginManager()
         
@@ -100,10 +101,30 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     
+    
+    
+    
+    
+    // MARK: TextField Delegate Methods
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        logIn()
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    
+    
+    
+    
+    
+    // MARK: Network Methods
     func authenticate() {
-        client.authenticateWithViewController(self) { (success, errorString) in
+        startLoadingVisual()
+        client.authenticateUser(self) { (success, errorString) in
             if success {
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.stopLoadingVisual()
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
             }
@@ -111,9 +132,34 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     
-    // MARK: Facebook Loging Methods
+    func logIn() {
+        if (isValidEmail(emailTextField.text!) && passwordTextField.text != "") {
+            currentUser.email = emailTextField.text!
+            currentUser.password = passwordTextField.text!
+            authenticate()
+        } else {
+            let alert = UIAlertController(title: "Login Error", message: "Please enter a valid email and password", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+        }
+    }
     
     
+    // MARK: Logic Methods
+    func isValidEmail(testStr:String) -> Bool {
+        // print("validate calendar: \(testStr)")
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluateWithObject(testStr)
+    }
+    
+    
+    
+    
+    
+    
+    // MARK: Facebook Delegate Methods
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
         FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name"]).startWithCompletionHandler { (connection, result, error) -> Void in
