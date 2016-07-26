@@ -193,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="359" y="254"/>
+            <point key="canvasLocation" x="899" y="254"/>
         </scene>
         <!--On The Map-->
         <scene sceneID="hFg-eL-ytr">
@@ -247,6 +247,7 @@
                             <barButtonItem image="pin icon" id="NR5-fQ-lvz">
                                 <connections>
                                     <action selector="pinButtonPressed:" destination="aQ7-XE-isz" id="VIV-lZ-CoC"/>
+                                    <segue destination="GoM-8o-CCS" kind="presentation" id="xnd-el-gSU"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -296,6 +297,7 @@
                             <barButtonItem image="pin icon" id="gD2-Nt-kcx">
                                 <connections>
                                     <action selector="pinButtonPressed:" destination="gWu-e7-u5F" id="BZm-hR-2s4"/>
+                                    <segue destination="GoM-8o-CCS" kind="presentation" id="JFW-aR-ali"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -307,6 +309,78 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPl-rk-ML8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3313" y="-77"/>
+        </scene>
+        <!--Information Posting View Controller-->
+        <scene sceneID="MMV-pJ-Pgv">
+            <objects>
+                <viewController id="Mvq-G5-fuM" customClass="InformationPostingViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fve-iW-aDX"/>
+                        <viewControllerLayoutGuide type="bottom" id="CHS-vS-8cq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0tT-Fm-uNj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you studying?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctt-BF-uOh">
+                                <rect key="frame" x="205" y="126" width="190" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Location" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s29-9a-7qF">
+                                <rect key="frame" x="157" y="155" width="287" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="287" id="Zf5-Xm-Egm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbv-jO-FBX">
+                                <rect key="frame" x="245" y="193" width="111" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="KNg-AH-83G"/>
+                                </constraints>
+                                <state key="normal" title="Find on the map"/>
+                                <connections>
+                                    <action selector="findOnTheMapPressed:" destination="Mvq-G5-fuM" eventType="touchUpInside" id="SGJ-Qy-0fk"/>
+                                </connections>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wp1-Ty-TZR">
+                                <rect key="frame" x="0.0" y="231" width="600" height="369"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wp1-Ty-TZR" firstAttribute="bottom" secondItem="CHS-vS-8cq" secondAttribute="top" id="EeL-Rs-s0K"/>
+                            <constraint firstItem="CHS-vS-8cq" firstAttribute="top" secondItem="Gbv-jO-FBX" secondAttribute="bottom" constant="377" id="Syb-wp-he0"/>
+                            <constraint firstItem="Gbv-jO-FBX" firstAttribute="top" secondItem="s29-9a-7qF" secondAttribute="bottom" constant="8" symbolic="YES" id="Ut5-fI-QFU"/>
+                            <constraint firstItem="wp1-Ty-TZR" firstAttribute="leading" secondItem="0tT-Fm-uNj" secondAttribute="leading" id="aFa-cw-xlc"/>
+                            <constraint firstItem="s29-9a-7qF" firstAttribute="top" secondItem="ctt-BF-uOh" secondAttribute="bottom" constant="8" symbolic="YES" id="emW-zh-xnc"/>
+                            <constraint firstItem="ctt-BF-uOh" firstAttribute="centerX" secondItem="0tT-Fm-uNj" secondAttribute="centerX" id="fL4-Ir-6sx"/>
+                            <constraint firstItem="ctt-BF-uOh" firstAttribute="top" secondItem="fve-iW-aDX" secondAttribute="bottom" constant="62" id="h6r-hb-ZTP"/>
+                            <constraint firstItem="wp1-Ty-TZR" firstAttribute="top" secondItem="Gbv-jO-FBX" secondAttribute="bottom" constant="8" symbolic="YES" id="moa-0R-4Fs"/>
+                            <constraint firstItem="wp1-Ty-TZR" firstAttribute="centerX" secondItem="Gbv-jO-FBX" secondAttribute="centerX" id="wlx-7D-jvW"/>
+                            <constraint firstItem="ctt-BF-uOh" firstAttribute="centerX" secondItem="s29-9a-7qF" secondAttribute="centerX" id="wxQ-YU-HFb"/>
+                            <constraint firstItem="s29-9a-7qF" firstAttribute="centerX" secondItem="Gbv-jO-FBX" secondAttribute="centerX" id="zI3-E6-maV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="iwz-CG-EUZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="QeU-kq-cRR">
+                            <connections>
+                                <action selector="cancelPressed:" destination="Mvq-G5-fuM" id="WvL-Yb-zoo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="locationTextField" destination="s29-9a-7qF" id="IsE-yy-Mvr"/>
+                        <outlet property="mapView" destination="wp1-Ty-TZR" id="8wf-Jb-5as"/>
+                        <outlet property="whereAreYouStudyingLabel" destination="ctt-BF-uOh" id="3hJ-eH-Vop"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iUe-xg-ehw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4936" y="254"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="TMB-Lx-2Wp">
@@ -365,6 +439,24 @@
             </objects>
             <point key="canvasLocation" x="2501" y="584"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hQg-8z-aKk">
+            <objects>
+                <navigationController storyboardIdentifier="postingNavView" automaticallyAdjustsScrollViewInsets="NO" id="GoM-8o-CCS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r8T-xS-FL1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Mvq-G5-fuM" kind="relationship" relationship="rootViewController" id="YYz-2I-sOC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tm3-A8-sMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4144" y="254"/>
+        </scene>
     </scenes>
     <resources>
         <image name="list icon" width="32" height="32"/>
@@ -372,4 +464,7 @@
         <image name="pin icon" width="32" height="32"/>
         <image name="udacity logo" width="256" height="256"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="xnd-el-gSU"/>
+    </inferredMetricsTieBreakers>
 </document>

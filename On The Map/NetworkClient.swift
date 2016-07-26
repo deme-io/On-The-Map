@@ -255,6 +255,33 @@ class NetworkClient: NSObject {
     }
     
     
+    func forwardGeocoding(address: String) {
+        CLGeocoder().geocodeAddressString(address, completionHandler: { (placemarks, error) in
+            if error != nil {
+                print(error)
+                return
+            }
+            
+            if let placemarks = placemarks {
+                if placemarks.count > 0 {
+                    let placemark = placemarks[0]
+                    if let location = placemark.location {
+                        let coordinate = location.coordinate
+                        self.currentUser.coordinate = coordinate
+                        print("\nlat: \(self.currentUser.coordinate.latitude), long: \(self.currentUser.coordinate.longitude)")
+                    }
+                    if placemark.areasOfInterest?.count > 0 {
+                        let areaOfInterest = placemark.areasOfInterest![0]
+                        print(areaOfInterest)
+                    } else {
+                        print("No area of interest found.")
+                    }
+                }
+            }
+        })
+    }
+    
+    
     class func sharedInstance() -> NetworkClient {
         struct Singleton {
             static var sharedInstance = NetworkClient()

@@ -15,15 +15,16 @@
 		450E8D1D1D3E794E000E8CE3 /* On_The_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E8D1C1D3E794E000E8CE3 /* On_The_MapTests.swift */; };
 		450E8D281D3E794E000E8CE3 /* On_The_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E8D271D3E794E000E8CE3 /* On_The_MapUITests.swift */; };
 		453544361D46C2C10074D10F /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */; };
+		453997591D47B2BD00008199 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453997581D47B2BD00008199 /* InformationPostingViewController.swift */; };
+		4539976F1D47B86600008199 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4539976C1D47B86600008199 /* Bolts.framework */; };
+		453997701D47B86600008199 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4539976D1D47B86600008199 /* FBSDKCoreKit.framework */; };
+		453997711D47B86600008199 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4539976E1D47B86600008199 /* FBSDKLoginKit.framework */; };
 		455059D31D4720CA00C53092 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455059D21D4720CA00C53092 /* Reachability.swift */; };
 		45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */; };
 		45B7F4D91D3E9B5A00DC66D4 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */; };
 		45B7F4DB1D3E9D4300DC66D4 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */; };
 		45B7F4DD1D3E9FC800DC66D4 /* PaddedLoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4DC1D3E9FC800DC66D4 /* PaddedLoginTextField.swift */; };
 		45B7F4E51D3EE54300DC66D4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E41D3EE54300DC66D4 /* Constants.swift */; };
-		45D8FAA01D474D7B00FE1D5E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D8FA9D1D474D7B00FE1D5E /* Bolts.framework */; };
-		45D8FAA11D474D7B00FE1D5E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D8FA9E1D474D7B00FE1D5E /* FBSDKCoreKit.framework */; };
-		45D8FAA21D474D7B00FE1D5E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D8FA9F1D474D7B00FE1D5E /* FBSDKLoginKit.framework */; };
 		45EF5C391D41F82F00C30CC6 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF5C381D41F82F00C30CC6 /* CurrentUser.swift */; };
 		45EF5C3B1D41FB6D00C30CC6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */; };
 		45EF5C551D44CFF000C30CC6 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF5C541D44CFF000C30CC6 /* Student.swift */; };
@@ -61,6 +62,10 @@
 		450E8D231D3E794E000E8CE3 /* On The MapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "On The MapUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		450E8D271D3E794E000E8CE3 /* On_The_MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On_The_MapUITests.swift; sourceTree = "<group>"; };
 		450E8D291D3E794E000E8CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		453997581D47B2BD00008199 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
+		4539976C1D47B86600008199 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		4539976D1D47B86600008199 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		4539976E1D47B86600008199 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		455059C11D46D93A00C53092 /* OnTheMap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OnTheMap-Bridging-Header.h"; path = "../OnTheMap-Bridging-Header.h"; sourceTree = "<group>"; };
 		455059D21D4720CA00C53092 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -69,9 +74,6 @@
 		45B7F4DC1D3E9FC800DC66D4 /* PaddedLoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedLoginTextField.swift; sourceTree = "<group>"; };
 		45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		45B7F4E41D3EE54300DC66D4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		45D8FA9D1D474D7B00FE1D5E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		45D8FA9E1D474D7B00FE1D5E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		45D8FA9F1D474D7B00FE1D5E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		45EF5C381D41F82F00C30CC6 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = ../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = SOURCE_ROOT; };
 		45EF5C541D44CFF000C30CC6 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
@@ -84,9 +86,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				45EF5C3B1D41FB6D00C30CC6 /* MapKit.framework in Frameworks */,
-				45D8FAA11D474D7B00FE1D5E /* FBSDKCoreKit.framework in Frameworks */,
-				45D8FAA21D474D7B00FE1D5E /* FBSDKLoginKit.framework in Frameworks */,
-				45D8FAA01D474D7B00FE1D5E /* Bolts.framework in Frameworks */,
+				453997701D47B86600008199 /* FBSDKCoreKit.framework in Frameworks */,
+				453997711D47B86600008199 /* FBSDKLoginKit.framework in Frameworks */,
+				4539976F1D47B86600008199 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +170,7 @@
 				45F1FECE1D46AD1E0091B138 /* TabBarViewController.swift */,
 				45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */,
 				45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */,
+				453997581D47B2BD00008199 /* InformationPostingViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -185,9 +188,9 @@
 			isa = PBXGroup;
 			children = (
 				455059C11D46D93A00C53092 /* OnTheMap-Bridging-Header.h */,
-				45D8FA9D1D474D7B00FE1D5E /* Bolts.framework */,
-				45D8FA9E1D474D7B00FE1D5E /* FBSDKCoreKit.framework */,
-				45D8FA9F1D474D7B00FE1D5E /* FBSDKLoginKit.framework */,
+				4539976C1D47B86600008199 /* Bolts.framework */,
+				4539976D1D47B86600008199 /* FBSDKCoreKit.framework */,
+				4539976E1D47B86600008199 /* FBSDKLoginKit.framework */,
 				45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */,
 			);
 			name = Frameworks;
@@ -342,6 +345,7 @@
 				450E8D0A1D3E794E000E8CE3 /* LoginViewController.swift in Sources */,
 				455059D31D4720CA00C53092 /* Reachability.swift in Sources */,
 				45B7F4DB1D3E9D4300DC66D4 /* LocationTableViewCell.swift in Sources */,
+				453997591D47B2BD00008199 /* InformationPostingViewController.swift in Sources */,
 				45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */,
 				45EF5C551D44CFF000C30CC6 /* Student.swift in Sources */,
 				45F1FECF1D46AD1E0091B138 /* TabBarViewController.swift in Sources */,

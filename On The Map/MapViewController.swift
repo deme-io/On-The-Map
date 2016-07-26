@@ -67,7 +67,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 // 3
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
-                view.calloutOffset = CGPoint(x: -5, y: 5)
+                //view.calloutOffset = CGPoint(x: -5, y: 5)
                 view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
                 view.animatesDrop = true
             }

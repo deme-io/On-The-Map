@@ -7,17 +7,36 @@
 //
 
 import Foundation
+import MapKit
 
-class CurrentUser {
+class CurrentUser: NSObject, MKAnnotation {
+    
+    
+    // MARK: ===== Properties =====
+    
     var firstName: String?
     var lastName: String?
-    
     var email: String?
-    var password: String? = nil
+    var password: String?
+    var mediaURL: String?
     
-    var sessionID : String? = nil
+    var sessionID : String?
     var userID : String?
     var facebookTokenString: String?
+    
+    
+    
+    
+    
+    // MARK: ===== MKAnnotion Protocol Properties =====
+    
+    var title: String?
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+    
+    
+    
+    
+    // MARK: ===== Singleton =====
     
     class func sharedInstance() -> CurrentUser {
         struct Singleton {
