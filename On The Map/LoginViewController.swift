@@ -121,14 +121,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     // MARK: Network Methods
     func authenticate() {
         startLoadingVisual()
-        client.authenticateUser(self) { (success, errorString) in
-            if success {
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.stopLoadingVisual()
-                    self.dismissViewControllerAnimated(true, completion: nil)
+        if Reachability.isConnectedToNetwork() {
+            client.authenticateUser(self) { (success, errorString) in
+                if success {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.stopLoadingVisual()
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                } else {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.presentAlert("Login Error", message: "Please check your email and password")
+                        self.stopLoadingVisual()
+                        //return
+                    }
                 }
+                
             }
+        } else {
+            presentAlert("Network Failure", message: "Please check your internet connection")
         }
+        
     }
     
     
@@ -138,10 +150,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
             currentUser.password = passwordTextField.text!
             authenticate()
         } else {
-            let alert = UIAlertController(title: "Login Error", message: "Please enter a valid email and password", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            presentViewController(alert, animated: true, completion: nil)
+            presentAlert("Login Error", message: "Please enter a valid email and password")
         }
+    }
+    
+    
+    func presentAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     
@@ -174,6 +191,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
         let loginManager: FBSDKLoginManager = FBSDKLoginManager()
         loginManager.logOut()
     }
+    
     
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
         return true

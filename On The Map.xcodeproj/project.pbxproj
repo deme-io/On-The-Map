@@ -18,6 +18,7 @@
 		455059CF1D46FE3300C53092 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455059CC1D46FE3300C53092 /* Bolts.framework */; };
 		455059D01D46FE3300C53092 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455059CD1D46FE3300C53092 /* FBSDKCoreKit.framework */; };
 		455059D11D46FE3300C53092 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455059CE1D46FE3300C53092 /* FBSDKLoginKit.framework */; };
+		455059D31D4720CA00C53092 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455059D21D4720CA00C53092 /* Reachability.swift */; };
 		45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */; };
 		45B7F4D91D3E9B5A00DC66D4 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */; };
 		45B7F4DB1D3E9D4300DC66D4 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */; };
@@ -64,6 +65,7 @@
 		455059CC1D46FE3300C53092 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		455059CD1D46FE3300C53092 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		455059CE1D46FE3300C53092 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		455059D21D4720CA00C53092 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */,
+				455059D21D4720CA00C53092 /* Reachability.swift */,
 				45B7F4E41D3EE54300DC66D4 /* Constants.swift */,
 				45EF5C381D41F82F00C30CC6 /* CurrentUser.swift */,
 				45EF5C541D44CFF000C30CC6 /* Student.swift */,
@@ -337,6 +340,7 @@
 			files = (
 				453544361D46C2C10074D10F /* NetworkClient.swift in Sources */,
 				450E8D0A1D3E794E000E8CE3 /* LoginViewController.swift in Sources */,
+				455059D31D4720CA00C53092 /* Reachability.swift in Sources */,
 				45B7F4DB1D3E9D4300DC66D4 /* LocationTableViewCell.swift in Sources */,
 				45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */,
 				45EF5C551D44CFF000C30CC6 /* Student.swift in Sources */,

@@ -23,7 +23,10 @@ class NetworkClient: NSObject {
         getSessionAndUserID { (success, sessionID, errorString) in
             if success {
                 completionHandlerForAuth(success: success, errorString: errorString)
+            } else {
+                completionHandlerForAuth(success: success, errorString: errorString)
             }
+            
         }
     }
     
@@ -59,7 +62,7 @@ class NetworkClient: NSObject {
     
     func checkIfUserIsLoggedIn() -> Bool {
         if (FBSDKAccessToken.currentAccessToken() != nil) || currentUser.sessionID != nil {
-            if FBSDKAccessToken.currentAccessToken().tokenString != nil {
+            if FBSDKAccessToken.currentAccessToken()?.tokenString != nil {
                 currentUser.facebookTokenString = FBSDKAccessToken.currentAccessToken().tokenString
             }
             return true
@@ -118,26 +121,26 @@ class NetworkClient: NSObject {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             // if an error occurs, print it and re-enable the UI
-            func displayError(error: String) {
-                print(error)
+            func forwardError(errorString: String) {
+                completionHandlerForSession(success: false, sessionID: nil, errorString: "\(errorString)")
             }
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                displayError("There was an error with your request: \(error)")
+                forwardError("There was an error with your request: \(error)")
                 return
             }
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                displayError("Your request returned a status code other than 2xx!")
+                forwardError("Your request returned a status code other than 2xx!")
                 print((response as? NSHTTPURLResponse)?.statusCode)
                 return
             }
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
-                displayError("No data was returned by the request!")
+                forwardError("No data was returned by the request!")
                 return
             }
             
