@@ -22,20 +22,8 @@ class Student: NSObject, MKAnnotation {
     var latitude: Double?
     var longitude: Double?
     
-    var coordinate: CLLocationCoordinate2D
-    
-    init(firstName: String, lastName: String, mapString: String, mediaURL: String, objectID: String, uniqueKey: String, latitude: Double, longitude: Double, coordinate: CLLocationCoordinate2D) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.mapString = mapString
-        self.mediaURL = mediaURL
-        self.objectID = objectID
-        self.uniqueKey = uniqueKey
-        self.latitude = latitude
-        self.longitude = longitude
-        self.coordinate = coordinate
-        
-        super.init()
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
     }
     
     var title: String? {
@@ -48,10 +36,24 @@ class Student: NSObject, MKAnnotation {
             if mediaURL!.rangeOfString("http://") == nil && mediaURL!.rangeOfString("https://") == nil {
                 mediaURL = "http://" + mediaURL!
             }
-            UIApplication.sharedApplication().openURL(NSURL(string: mediaURL!)!)
+            //UIApplication.sharedApplication().openURL(NSURL(string: mediaURL!)!)
             return mediaURL!
         } else {
             return ""
         }
+    }
+    
+    init(firstName: String, lastName: String, mapString: String, mediaURL: String, objectID: String, uniqueKey: String, latitude: Double, longitude: Double) {
+        super.init()
+        
+        self.firstName = firstName
+        self.lastName = lastName
+        self.mapString = mapString
+        self.mediaURL = mediaURL
+        self.objectID = objectID
+        self.uniqueKey = uniqueKey
+        self.latitude = latitude
+        self.longitude = longitude
+        //self.coordinate = coordinate
     }
 }

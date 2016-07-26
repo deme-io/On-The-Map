@@ -10,25 +10,27 @@ import UIKit
 
 class ListTableViewController: UITableViewController {
     
-    //@IBOutlet weak var tableView: UITableView!
-    var data = []
+    var students = [Student]()
     
+    //@IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         reloadData()
+        
     }
     
-    func reloadData () {
-        NetworkClient.sharedInstance().getStudentLocations(self) { (data, errorString) in
-            if errorString == nil {
-                self.data = (data["results"] as! NSArray) as Array
-            }
-            dispatch_async(dispatch_get_main_queue()) {
-                self.tableView.reloadData()
+    func reloadData() {
+        NetworkClient.sharedInstance().loadStudents(self) { (data, errorString) in
+            if errorString != nil {
+                print(errorString)
+            } else {
+                self.students = data
+                dispatch_async(dispatch_get_main_queue(), { 
+                    self.tableView.reloadData()
+                })
             }
         }
-        
     }
     
     
@@ -43,8 +45,8 @@ class ListTableViewController: UITableViewController {
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         NetworkClient.sharedInstance().logout()
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("loginView") as! LoginViewController
-        self.presentViewController(controller, animated: true, completion: nil)
+        let controller = storyboard!.instantiateViewControllerWithIdentifier("loginView") as! LoginViewController
+        presentViewController(controller, animated: true, completion: nil)
     }
     
     
@@ -54,25 +56,24 @@ class ListTableViewController: UITableViewController {
         let cellResuseIdentifier = "customCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellResuseIdentifier) as! LocationTableViewCell
         
-        let user = data[indexPath.row] as! NSDictionary
-        
-        cell.nameLabel.text = "\(user["firstName"]!) \(user["lastName"]!)"
+        let thisStudent = students[indexPath.row]
+
+        cell.nameLabel.text = "\(thisStudent.firstName!) \(thisStudent.lastName!)"
         
         return cell
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return students.count
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let user = data[indexPath.row] as! NSDictionary
-        var mediaURL = user["mediaURL"] as! String
+        let thisStudent = students[indexPath.row]
+        guard var mediaURL = thisStudent.mediaURL else { return }
         
         if mediaURL.rangeOfString("http://") == nil && mediaURL.rangeOfString("https://") == nil {
             mediaURL = "http://" + mediaURL
         }
-        print(mediaURL)
         UIApplication.sharedApplication().openURL(NSURL(string: mediaURL)!)
     }
     

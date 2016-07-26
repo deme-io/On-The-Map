@@ -14,8 +14,8 @@ class TabBarViewController: UITabBarController {
         super.viewDidAppear(animated)
         
         if NetworkClient.sharedInstance().checkIfUserIsLoggedIn() == false {
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("loginView")
-            self.presentViewController(controller, animated: true, completion: nil)
+            let controller = storyboard!.instantiateViewControllerWithIdentifier("loginView")
+            presentViewController(controller, animated: true, completion: nil)
         }
     }
     

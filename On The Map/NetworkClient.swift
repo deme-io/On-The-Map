@@ -6,13 +6,16 @@
 //  Copyright © 2016 Demetrius Henry. All rights reserved.
 //
 
-import Foundation
+//import Foundation
 import UIKit
+import MapKit
 
 class NetworkClient: NSObject {
+    
     var session = NSURLSession.sharedSession()
     var currentUser = CurrentUser.sharedInstance()
-    var results = []
+    var students = [Student]()
+    //var results = []
     
     
     func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
@@ -52,8 +55,6 @@ class NetworkClient: NSObject {
             print(NSString(data: newData, encoding: NSUTF8StringEncoding))
         }
         task.resume()
-        
-        print("Logged out")
     }
     
     func checkIfUserIsLoggedIn() -> Bool {
@@ -64,27 +65,38 @@ class NetworkClient: NSObject {
         }
     }
     
-    func getStudentLocations(hostViewController: UIViewController, completionHandlerForAuth: (data: AnyObject, errorString: String?) -> Void) {
+    func loadStudents(hostViewController: UIViewController, completionHandlerForAuth: (data: [Student], errorString: String?) -> Void) {
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100")!)
         request.addValue(Constants.Parse.ApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(Constants.Parse.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
 
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error...
+        let task = session.dataTaskWithRequest(request) { data, response, taskerror in
+            if taskerror != nil { // Handle error...
+                //completionHandlerForAuth(data: [], errorString: taskerror?.localizedDescription)
                 return
             }
             
-            var parsedResult: AnyObject!
+            var parsedResult: [String: AnyObject]
             do {
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! [String : AnyObject]
             } catch {
                 print("Could not parse JSON data: \(data!)")
+                //completionHandlerForAuth(data: nil, errorString: taskerror?.localizedDescription)
+                return
             }
             
-            print(parsedResult)
+            // TODO: Write parsed result to students and add to students array
+            let downloadedStudents = parsedResult["results"] as! NSArray
             
-            completionHandlerForAuth(data: parsedResult, errorString: error?.localizedDescription)
+            
+            for newStudent in downloadedStudents {
+                let student: Student = Student(firstName: newStudent["firstName"] as! String, lastName: newStudent["lastName"] as! String, mapString: newStudent["mapString"] as! String, mediaURL: newStudent["mediaURL"] as! String, objectID: newStudent["objectId"] as! String, uniqueKey: newStudent["uniqueKey"] as! String, latitude: newStudent["latitude"] as! Double, longitude: newStudent["longitude"] as! Double)
+                
+                self.students.append(student)
+            }
+            
+            completionHandlerForAuth(data: self.students, errorString: taskerror?.localizedDescription)
         }
         task.resume()
     }
@@ -97,10 +109,8 @@ class NetworkClient: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         if (FBSDKAccessToken.currentAccessToken() != nil) {
-            print("Using facebook URL")
             request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"\(FBSDKAccessToken.currentAccessToken().tokenString)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         } else {
-            print("Using udacity URL")
             request.HTTPBody = "{\"udacity\": {\"username\": \"\(currentUser.username!)\", \"password\": \"\(currentUser.password!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         }
         
@@ -141,7 +151,6 @@ class NetworkClient: NSObject {
             
             if let parsedSession = parsedResult["session"] as? NSDictionary {
                 self.currentUser.sessionID = parsedSession["id"]! as? String
-                print(self.currentUser.sessionID)
             }
             
             if let parsedAccount = parsedResult["account"] as? NSDictionary {
