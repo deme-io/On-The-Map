@@ -27,7 +27,7 @@ class Student: NSObject, MKAnnotation {
     }
     
     var title: String? {
-        return firstName! + lastName!
+        return "\(firstName!) \(lastName!)"
     }
     
     var subtitle: String? {

@@ -51,8 +51,8 @@ class NetworkClient: NSObject {
             if error != nil { // Handle error…
                 return
             }
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            //let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            //print(NSString(data: newData, encoding: NSUTF8StringEncoding))
         }
         task.resume()
     }
@@ -86,9 +86,7 @@ class NetworkClient: NSObject {
                 return
             }
             
-            // TODO: Write parsed result to students and add to students array
             let downloadedStudents = parsedResult["results"] as! NSArray
-            
             
             for newStudent in downloadedStudents {
                 let student: Student = Student(firstName: newStudent["firstName"] as! String, lastName: newStudent["lastName"] as! String, mapString: newStudent["mapString"] as! String, mediaURL: newStudent["mediaURL"] as! String, objectID: newStudent["objectId"] as! String, uniqueKey: newStudent["uniqueKey"] as! String, latitude: newStudent["latitude"] as! Double, longitude: newStudent["longitude"] as! Double)

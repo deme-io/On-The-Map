@@ -15,9 +15,9 @@
 		450E8D1D1D3E794E000E8CE3 /* On_The_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E8D1C1D3E794E000E8CE3 /* On_The_MapTests.swift */; };
 		450E8D281D3E794E000E8CE3 /* On_The_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E8D271D3E794E000E8CE3 /* On_The_MapUITests.swift */; };
 		453544361D46C2C10074D10F /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */; };
-		455059C81D46DB5000C53092 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455059C61D46DB5000C53092 /* FBSDKCoreKit.framework */; };
-		455059C91D46DB5000C53092 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455059C71D46DB5000C53092 /* FBSDKLoginKit.framework */; };
-		455059CB1D46DCF500C53092 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455059CA1D46DCF500C53092 /* Bolts.framework */; };
+		455059CF1D46FE3300C53092 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455059CC1D46FE3300C53092 /* Bolts.framework */; };
+		455059D01D46FE3300C53092 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455059CD1D46FE3300C53092 /* FBSDKCoreKit.framework */; };
+		455059D11D46FE3300C53092 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455059CE1D46FE3300C53092 /* FBSDKLoginKit.framework */; };
 		45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */; };
 		45B7F4D91D3E9B5A00DC66D4 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */; };
 		45B7F4DB1D3E9D4300DC66D4 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */; };
@@ -60,10 +60,10 @@
 		450E8D231D3E794E000E8CE3 /* On The MapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "On The MapUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		450E8D271D3E794E000E8CE3 /* On_The_MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On_The_MapUITests.swift; sourceTree = "<group>"; };
 		450E8D291D3E794E000E8CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		455059C11D46D93A00C53092 /* OnTheMap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OnTheMap-Bridging-Header.h"; sourceTree = "<group>"; };
-		455059C61D46DB5000C53092 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		455059C71D46DB5000C53092 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		455059CA1D46DCF500C53092 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		455059C11D46D93A00C53092 /* OnTheMap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OnTheMap-Bridging-Header.h"; path = "../OnTheMap-Bridging-Header.h"; sourceTree = "<group>"; };
+		455059CC1D46FE3300C53092 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		455059CD1D46FE3300C53092 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		455059CE1D46FE3300C53092 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
@@ -82,9 +82,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				45EF5C3B1D41FB6D00C30CC6 /* MapKit.framework in Frameworks */,
-				455059C81D46DB5000C53092 /* FBSDKCoreKit.framework in Frameworks */,
-				455059C91D46DB5000C53092 /* FBSDKLoginKit.framework in Frameworks */,
-				455059CB1D46DCF500C53092 /* Bolts.framework in Frameworks */,
+				455059D01D46FE3300C53092 /* FBSDKCoreKit.framework in Frameworks */,
+				455059D11D46FE3300C53092 /* FBSDKLoginKit.framework in Frameworks */,
+				455059CF1D46FE3300C53092 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,9 +183,9 @@
 			isa = PBXGroup;
 			children = (
 				455059C11D46D93A00C53092 /* OnTheMap-Bridging-Header.h */,
-				455059CA1D46DCF500C53092 /* Bolts.framework */,
-				455059C61D46DB5000C53092 /* FBSDKCoreKit.framework */,
-				455059C71D46DB5000C53092 /* FBSDKLoginKit.framework */,
+				455059CC1D46FE3300C53092 /* Bolts.framework */,
+				455059CD1D46FE3300C53092 /* FBSDKCoreKit.framework */,
+				455059CE1D46FE3300C53092 /* FBSDKLoginKit.framework */,
 				45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */,
 			);
 			name = Frameworks;
@@ -440,6 +440,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -482,6 +483,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -500,26 +502,15 @@
 					"$(PROJECT_DIR)/On",
 					The,
 					Map,
-					"$(PROJECT_DIR)/On",
-					The,
-					Map,
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "On The Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/On",
-					The,
-					Map,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "DigitalZero.On-The-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "On The Map/OnTheMap-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "OnTheMap-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -535,26 +526,15 @@
 					"$(PROJECT_DIR)/On",
 					The,
 					Map,
-					"$(PROJECT_DIR)/On",
-					The,
-					Map,
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "On The Map/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/On",
-					The,
-					Map,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "DigitalZero.On-The-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "On The Map/OnTheMap-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "OnTheMap-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

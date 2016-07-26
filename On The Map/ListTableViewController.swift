@@ -16,17 +16,16 @@ class ListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        reloadData()
-        
+        loadData()
     }
     
-    func reloadData() {
+    func loadData() {
         NetworkClient.sharedInstance().loadStudents(self) { (data, errorString) in
             if errorString != nil {
                 print(errorString)
             } else {
                 self.students = data
-                dispatch_async(dispatch_get_main_queue(), { 
+                dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
                 })
             }
@@ -35,7 +34,7 @@ class ListTableViewController: UITableViewController {
     
     
     @IBAction func reloadButtonPressed(sender: AnyObject) {
-        reloadData()
+        loadData()
     }
     
     

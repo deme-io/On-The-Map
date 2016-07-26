@@ -85,17 +85,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 } else if result.isCancelled {
                     print("Cancelled")
                 } else {
-                    print("Logged in")
                     FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, email"]).startWithCompletionHandler { (connection, result, error) -> Void in
                         self.currentUser.firstName = (result.objectForKey("first_name") as? String)!
                         self.currentUser.lastName = (result.objectForKey("last_name") as? String)!
                         self.currentUser.email = (result.objectForKey("email") as? String)!
                         self.currentUser.facebookTokenString = FBSDKAccessToken.currentAccessToken().tokenString
-                        
-                        print(self.currentUser.firstName!)
-                        print(self.currentUser.lastName!)
-                        print(self.currentUser.email!)
-                        print(FBSDKAccessToken.currentAccessToken().tokenString)
                         
                         self.authenticate()
                     }
