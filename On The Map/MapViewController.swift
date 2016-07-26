@@ -25,10 +25,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func loadData() {
+        let temp = students
         NetworkClient.sharedInstance().loadStudents(self) { (data, errorString) in
             if errorString != nil {
                 print(errorString)
             } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.mapView.removeAnnotations(self.students)
+                })
+                self.students = []
                 self.students = data
                 dispatch_async(dispatch_get_main_queue(), {
                     self.mapView.addAnnotations(self.students)
@@ -66,6 +71,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
                 view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+                view.animatesDrop = true
             }
             return view
         }

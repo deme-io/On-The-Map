@@ -24,6 +24,7 @@ class ListTableViewController: UITableViewController {
             if errorString != nil {
                 print(errorString)
             } else {
+                self.students = []
                 self.students = data
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()

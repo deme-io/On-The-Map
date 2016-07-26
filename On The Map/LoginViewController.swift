@@ -144,6 +144,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     }
     
     
+    
     func logIn() {
         if (isValidEmail(emailTextField.text!) && passwordTextField.text != "") {
             currentUser.email = emailTextField.text!

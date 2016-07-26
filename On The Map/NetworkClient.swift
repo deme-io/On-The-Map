@@ -15,7 +15,6 @@ class NetworkClient: NSObject {
     var session = NSURLSession.sharedSession()
     var currentUser = CurrentUser.sharedInstance()
     var students = [Student]()
-    //var results = []
     
     
     func authenticateUser(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
@@ -93,6 +92,8 @@ class NetworkClient: NSObject {
             }
             
             let downloadedStudents = parsedResult["results"] as! NSArray
+            
+            self.students = []
             
             for newStudent in downloadedStudents {
                 let student: Student = Student(firstName: newStudent["firstName"] as! String, lastName: newStudent["lastName"] as! String, mapString: newStudent["mapString"] as! String, mediaURL: newStudent["mediaURL"] as! String, objectID: newStudent["objectId"] as! String, uniqueKey: newStudent["uniqueKey"] as! String, latitude: newStudent["latitude"] as! Double, longitude: newStudent["longitude"] as! Double)
