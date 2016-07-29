@@ -19,12 +19,22 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     @IBOutlet weak var whereAreYouStudyingLabel: UILabel!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var findTheMapButton: UIButton!
+    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var loadingView: UIVisualEffectView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         locationTextField.delegate = self
+        urlTextField.delegate = self
         mapView.delegate = self
+        mapView.hidden = true
+        submitButton.hidden = true
+        urlTextField.hidden = true
+        stopLoadingVisual()
     }
     
     
@@ -42,6 +52,47 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     @IBAction func findOnTheMapPressed(sender: AnyObject) {
         shouldGeocode()
     }
+    
+    
+    @IBAction func submitButtonPressed(sender: AnyObject) {
+        if urlTextField.text == "" {
+            presentAlert("URL Missing", message: "Please enter a url")
+        } else {
+            currentUser.mediaURL = urlTextField.text
+            client.postUserInfo({ (success, errorString) in
+                if !success {
+                    self.presentAlert("Error", message: errorString!)
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                }
+            })
+        }
+    }
+    
+    
+    
+    
+    
+    
+    // MARK: ===== Visual Methods =====
+    
+    func startLoadingVisual() {
+        loadingView.hidden = false
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    
+    func stopLoadingVisual() {
+        loadingView.hidden = true
+        activityIndicator.hidden = true
+        activityIndicator.stopAnimating()
+    }
+    
+    
+    
     
     
     
@@ -71,7 +122,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     func updateMapView() {
         let span = MKCoordinateSpanMake(0.075, 0.075)
         let region = MKCoordinateRegion(center: currentUser.coordinate, span: span)
-        mapView.setRegion(region, animated: true)
+        mapView.setRegion(region, animated: false)
         mapView.addAnnotation(currentUser)
         mapView.selectAnnotation(mapView.annotations[0], animated: true)
     }
@@ -87,6 +138,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     func shouldGeocode() {
         if locationTextField.text != "" {
             forwardGeocoding(locationTextField.text!)
+            startLoadingVisual()
         } else {
             presentAlert("Enter location", message: "Please enter a valid location")
         }
@@ -110,7 +162,15 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
                         })
                         self.currentUser.coordinate = coordinate
                         dispatch_async(dispatch_get_main_queue(), {
+                            self.stopLoadingVisual()
                             self.updateMapView()
+                            self.mapView.hidden = false
+                            self.whereAreYouStudyingLabel.hidden = true
+                            self.locationTextField.hidden = true
+                            self.findTheMapButton.hidden = true
+                            self.submitButton.hidden = false
+                            self.urlTextField.hidden = false
+                            
                         })
                     }
                 }
@@ -128,7 +188,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     
     func presentAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
     

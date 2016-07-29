@@ -14,11 +14,12 @@
 		450E8D121D3E794E000E8CE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450E8D101D3E794E000E8CE3 /* LaunchScreen.storyboard */; };
 		450E8D1D1D3E794E000E8CE3 /* On_The_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E8D1C1D3E794E000E8CE3 /* On_The_MapTests.swift */; };
 		450E8D281D3E794E000E8CE3 /* On_The_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E8D271D3E794E000E8CE3 /* On_The_MapUITests.swift */; };
+		4517049A1D4B1FED00EC9027 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451704971D4B1FED00EC9027 /* Bolts.framework */; };
+		4517049B1D4B1FED00EC9027 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451704981D4B1FED00EC9027 /* FBSDKCoreKit.framework */; };
+		4517049C1D4B1FED00EC9027 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451704991D4B1FED00EC9027 /* FBSDKLoginKit.framework */; };
 		453544361D46C2C10074D10F /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */; };
 		453997591D47B2BD00008199 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453997581D47B2BD00008199 /* InformationPostingViewController.swift */; };
-		4539976F1D47B86600008199 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4539976C1D47B86600008199 /* Bolts.framework */; };
-		453997701D47B86600008199 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4539976D1D47B86600008199 /* FBSDKCoreKit.framework */; };
-		453997711D47B86600008199 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4539976E1D47B86600008199 /* FBSDKLoginKit.framework */; };
+		453997731D48166900008199 /* Students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453997721D48166900008199 /* Students.swift */; };
 		455059D31D4720CA00C53092 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455059D21D4720CA00C53092 /* Reachability.swift */; };
 		45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */; };
 		45B7F4D91D3E9B5A00DC66D4 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */; };
@@ -27,7 +28,7 @@
 		45B7F4E51D3EE54300DC66D4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E41D3EE54300DC66D4 /* Constants.swift */; };
 		45EF5C391D41F82F00C30CC6 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF5C381D41F82F00C30CC6 /* CurrentUser.swift */; };
 		45EF5C3B1D41FB6D00C30CC6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */; };
-		45EF5C551D44CFF000C30CC6 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF5C541D44CFF000C30CC6 /* Student.swift */; };
+		45EF5C551D44CFF000C30CC6 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF5C541D44CFF000C30CC6 /* StudentInformation.swift */; };
 		45F1FECF1D46AD1E0091B138 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F1FECE1D46AD1E0091B138 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,10 +63,11 @@
 		450E8D231D3E794E000E8CE3 /* On The MapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "On The MapUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		450E8D271D3E794E000E8CE3 /* On_The_MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On_The_MapUITests.swift; sourceTree = "<group>"; };
 		450E8D291D3E794E000E8CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		451704971D4B1FED00EC9027 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		451704981D4B1FED00EC9027 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		451704991D4B1FED00EC9027 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		453997581D47B2BD00008199 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
-		4539976C1D47B86600008199 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		4539976D1D47B86600008199 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		4539976E1D47B86600008199 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		453997721D48166900008199 /* Students.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Students.swift; sourceTree = "<group>"; };
 		455059C11D46D93A00C53092 /* OnTheMap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OnTheMap-Bridging-Header.h"; path = "../OnTheMap-Bridging-Header.h"; sourceTree = "<group>"; };
 		455059D21D4720CA00C53092 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +78,7 @@
 		45B7F4E41D3EE54300DC66D4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		45EF5C381D41F82F00C30CC6 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = ../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = SOURCE_ROOT; };
-		45EF5C541D44CFF000C30CC6 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		45EF5C541D44CFF000C30CC6 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 		45F1FECE1D46AD1E0091B138 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,9 +88,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				45EF5C3B1D41FB6D00C30CC6 /* MapKit.framework in Frameworks */,
-				453997701D47B86600008199 /* FBSDKCoreKit.framework in Frameworks */,
-				453997711D47B86600008199 /* FBSDKLoginKit.framework in Frameworks */,
-				4539976F1D47B86600008199 /* Bolts.framework in Frameworks */,
+				4517049B1D4B1FED00EC9027 /* FBSDKCoreKit.framework in Frameworks */,
+				4517049C1D4B1FED00EC9027 /* FBSDKLoginKit.framework in Frameworks */,
+				4517049A1D4B1FED00EC9027 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,9 +190,9 @@
 			isa = PBXGroup;
 			children = (
 				455059C11D46D93A00C53092 /* OnTheMap-Bridging-Header.h */,
-				4539976C1D47B86600008199 /* Bolts.framework */,
-				4539976D1D47B86600008199 /* FBSDKCoreKit.framework */,
-				4539976E1D47B86600008199 /* FBSDKLoginKit.framework */,
+				451704971D4B1FED00EC9027 /* Bolts.framework */,
+				451704981D4B1FED00EC9027 /* FBSDKCoreKit.framework */,
+				451704991D4B1FED00EC9027 /* FBSDKLoginKit.framework */,
 				45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */,
 			);
 			name = Frameworks;
@@ -204,7 +206,8 @@
 				455059D21D4720CA00C53092 /* Reachability.swift */,
 				45B7F4E41D3EE54300DC66D4 /* Constants.swift */,
 				45EF5C381D41F82F00C30CC6 /* CurrentUser.swift */,
-				45EF5C541D44CFF000C30CC6 /* Student.swift */,
+				45EF5C541D44CFF000C30CC6 /* StudentInformation.swift */,
+				453997721D48166900008199 /* Students.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -344,10 +347,11 @@
 				453544361D46C2C10074D10F /* NetworkClient.swift in Sources */,
 				450E8D0A1D3E794E000E8CE3 /* LoginViewController.swift in Sources */,
 				455059D31D4720CA00C53092 /* Reachability.swift in Sources */,
+				453997731D48166900008199 /* Students.swift in Sources */,
 				45B7F4DB1D3E9D4300DC66D4 /* LocationTableViewCell.swift in Sources */,
 				453997591D47B2BD00008199 /* InformationPostingViewController.swift in Sources */,
 				45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */,
-				45EF5C551D44CFF000C30CC6 /* Student.swift in Sources */,
+				45EF5C551D44CFF000C30CC6 /* StudentInformation.swift in Sources */,
 				45F1FECF1D46AD1E0091B138 /* TabBarViewController.swift in Sources */,
 				45B7F4DD1D3E9FC800DC66D4 /* PaddedLoginTextField.swift in Sources */,
 				45EF5C391D41F82F00C30CC6 /* CurrentUser.swift in Sources */,

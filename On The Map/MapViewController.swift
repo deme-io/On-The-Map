@@ -13,7 +13,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: ===== Properties =====
     
-    var students = [Student]()
+    let client = NetworkClient.sharedInstance()
+    var annotationsArray = [MKPointAnnotation]()
+    
     @IBOutlet weak var mapView: MKMapView!
     
     
@@ -25,9 +27,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         mapView.delegate = self
-        loadData()
-        mapView.addAnnotations(students)
-        mapView.showAnnotations(students, animated: true)
+        
+        if Students.sharedInstance.isEmpty {
+            reloadMapData()
+        } else {
+            loadMapWithAnnotations()
+        }
+        
+        
     }
     
     
@@ -37,17 +44,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: ===== Data Methods =====
     
-    func loadData() {
-        let temp = students
-        NetworkClient.sharedInstance().loadStudents(self) { (data, errorString) in
+    func loadMapWithAnnotations() {
+        self.annotationsArray = []
+        for newStudent in Students.sharedInstance {
+            let annotation = MKPointAnnotation()
+            annotation.title = "\(newStudent.firstName!) \(newStudent.lastName!)"
+            annotation.coordinate = newStudent.coordinate
+            annotation.subtitle = newStudent.subtitle!
+            
+            self.annotationsArray.append(annotation)
+        }
+        
+        mapView.addAnnotations(annotationsArray)
+        mapView.showAnnotations(annotationsArray, animated: true)
+    }
+    
+    
+    func reloadMapData() {
+        client.loadStudents { (errorString) in
             if errorString != nil {
                 print(errorString)
             } else {
-                self.students = []
-                self.students = data
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.mapView.removeAnnotations(temp)
-                    self.mapView.addAnnotations(self.students)
+                    self.loadMapWithAnnotations()
                 })
             }
         }
@@ -61,11 +80,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: ===== IBAction Methods =====
     
     @IBAction func reloadButtonPressed(sender: AnyObject) {
-        loadData()
-    }
-    
-    
-    @IBAction func pinButtonPressed(sender: AnyObject) {
+        mapView.removeAnnotations(annotationsArray)
+        reloadMapData()
     }
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
@@ -81,29 +97,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: ===== MapView Methods =====
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        if let annotation = annotation as? Student {
-            let identifier = "pin"
-            var view: MKPinAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
-                as? MKPinAnnotationView { // 2
-                dequeuedView.annotation = annotation
-                view = dequeuedView
-            } else {
-                // 3
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                view.canShowCallout = true
-                //view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
-                view.animatesDrop = true
-            }
-            return view
+        let identifier = "pin"
+        var view: MKPinAnnotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+            as? MKPinAnnotationView {
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+        } else {
+            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = true
+            view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+            view.animatesDrop = false
         }
-        return nil
+        return view
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let link = view.annotation?.subtitle else { return }
-        
         UIApplication.sharedApplication().openURL(NSURL(string: link!)!)
     }
 }

@@ -16,14 +16,15 @@ class NetworkClient: NSObject {
     
     var session = NSURLSession.sharedSession()
     var currentUser = CurrentUser.sharedInstance()
-    var students = [Student]()
+    //var studentsArray = Students.sharedInstance
+    
+    
     
     
     
     // MARK: ===== Authentication Sequence =====
     
     func authenticateUser(hostViewController: UIViewController, completionHandlerForAuth: (success: Bool, errorString: String?) -> Void) {
-        
         getSessionAndUserID { (success, sessionID, errorString) in
             completionHandlerForAuth(success: success, errorString: errorString)
         }
@@ -32,7 +33,6 @@ class NetworkClient: NSObject {
     
     
     private func getSessionAndUserID(completionHandlerForSession: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
-        
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -85,9 +85,39 @@ class NetworkClient: NSObject {
                 self.currentUser.userID = parsedAccount["key"]! as? String
             }
             
+            self.getUserInfo()
             completionHandlerForSession(success: true, sessionID: self.currentUser.sessionID, errorString: "\(error)")
         }
         task.resume()
+    }
+    
+    
+    private func getUserInfo() {
+        if let userId = currentUser.userID {
+            let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(userId)")!)
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(request) { data, response, error in
+                if error != nil { // Handle error...
+                    return
+                }
+                let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+                //print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+                
+                var parsedResult: AnyObject!
+                do {
+                    parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments) as! [String : AnyObject]
+                } catch {
+                    print("Could not parse JSON data: \(newData)")
+                }
+                
+                if let userInfo = parsedResult["user"] as? NSDictionary {
+                    self.currentUser.firstName = userInfo["first_name"]! as? String
+                    self.currentUser.lastName = userInfo["last_name"]! as? String
+                    self.currentUser.email = userInfo["email"]!["address"]! as? String
+                }
+            }
+            task.resume()
+        }
     }
     
     
@@ -115,7 +145,7 @@ class NetworkClient: NSObject {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
+            if error != nil {
                 return
             }
             //let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
@@ -128,11 +158,27 @@ class NetworkClient: NSObject {
         if (FBSDKAccessToken.currentAccessToken() != nil) || currentUser.sessionID != nil {
             if FBSDKAccessToken.currentAccessToken()?.tokenString != nil {
                 currentUser.facebookTokenString = FBSDKAccessToken.currentAccessToken().tokenString
+                getSessionAndUserID({ (success, sessionID, errorString) in
+                    if !success {
+                        print(errorString)
+                    }
+                })
             }
+            loadStudents({ (errorString) in
+                if errorString != nil {
+                    print("Connection Error: Could not load data")
+                }
+            })
             return true
         } else {
             return false
         }
+    }
+    
+    
+    private func presentAlertView(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction.init(title: "OK", style: .Default, handler: nil))
     }
     
     
@@ -142,14 +188,14 @@ class NetworkClient: NSObject {
     
     // MARK: ===== Data Methods =====
     
-    func loadStudents(hostViewController: UIViewController, completionHandlerForAuth: (data: [Student], errorString: String?) -> Void) {
+    func loadStudents(completionHandlerForAuth: (errorString: String?) -> Void) {
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100&order=updatedAt")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100&order=-updatedAt")!)
         request.addValue(Constants.Parse.ApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(Constants.Parse.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
 
         let task = session.dataTaskWithRequest(request) { data, response, taskerror in
-            if taskerror != nil { // Handle error...
+            if taskerror != nil {
                 //completionHandlerForAuth(data: [], errorString: taskerror?.localizedDescription)
                 return
             }
@@ -165,117 +211,43 @@ class NetworkClient: NSObject {
             
             let downloadedStudents = parsedResult["results"] as! NSArray
             
-            self.students = []
+            Students.sharedInstance = []
             
             for newStudent in downloadedStudents {
-                let student: Student = Student(firstName: newStudent["firstName"] as! String, lastName: newStudent["lastName"] as! String, mapString: newStudent["mapString"] as! String, mediaURL: newStudent["mediaURL"] as! String, objectID: newStudent["objectId"] as! String, uniqueKey: newStudent["uniqueKey"] as! String, latitude: newStudent["latitude"] as! Double, longitude: newStudent["longitude"] as! Double)
-                
-                self.students.append(student)
+                let studentValues = ["firstName": newStudent["firstName"],
+                                     "lastName": newStudent["lastName"],
+                                     "mediaURL": newStudent["mediaURL"],
+                                     "latitude": newStudent["latitude"],
+                                     "longitude": newStudent["longitude"]]
+                let student = StudentInformation(withDictionary: studentValues as! [String : AnyObject])
+                Students.sharedInstance.append(student)
             }
             
-            completionHandlerForAuth(data: self.students, errorString: taskerror?.localizedDescription)
+            completionHandlerForAuth(errorString: taskerror?.localizedDescription)
         }
         task.resume()
     }
     
     
-    
-
-    
-    
-    // MARK: ===== POST Method =====
-    
-    private func taskForPOSTMethod(method: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-        
-        /* 1. Set the parameters */
-        var parametersWithApiKey = parameters
-        //parametersWithApiKey[ParameterKeys.ApiKey] = Constants.ApiKey
-        
-        /* 2/3. Build the URL, Configure the request */
-        let request = NSMutableURLRequest(URL: udacityURLFromParameters(parametersWithApiKey, withPathExtension: method))
+    func postUserInfo(completionHandlerForPost: (success: Bool, errorString: String?) -> Void) {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
         request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue(Constants.Parse.ApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(Constants.Parse.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = jsonBody.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        /* 4. Make the request */
-        let task = session.dataTaskWithRequest(request) { (data, response, error) in
-            
-            func sendError(error: String) {
-                print(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForPOST(result: nil, error: NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
-            }
-            
-            /* GUARD: Was there an error? */
-            guard (error == nil) else {
-                sendError("There was an error with your request: \(error)")
+        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"\(currentUser.firstName!)\", \"lastName\": \"\(currentUser.lastName!)\",\"mapString\": \"\(currentUser.title!)\", \"mediaURL\": \"\(currentUser.mediaURL!)\",\"latitude\": \(currentUser.coordinate.latitude), \"longitude\": \(currentUser.coordinate.longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil {
+                completionHandlerForPost(success: false, errorString: error?.localizedDescription)
                 return
             }
+            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
             
-            /* GUARD: Did we get a successful 2XX response? */
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                sendError("Your request returned a status code other than 2xx!")
-                return
-            }
-            
-            /* GUARD: Was there any data returned? */
-            guard let data = data else {
-                sendError("No data was returned by the request!")
-                return
-            }
-            
-            /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForPOST)
+            completionHandlerForPost(success: true, errorString: nil)
         }
-        
-        /* 7. Start the request */
         task.resume()
-        
-        return task
     }
-    
-    
-    
-    
-    
-    
-    
-    // MARK: ===== Helper Methods =====
-    
-    private func convertDataWithCompletionHandler(data: NSData, completionHandlerForConvertData: (result: AnyObject!, error: NSError?) -> Void) {
-        
-        var parsedResult: AnyObject!
-        do {
-            parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-        } catch {
-            let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
-            completionHandlerForConvertData(result: nil, error: NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
-        }
-        
-        completionHandlerForConvertData(result: parsedResult, error: nil)
-    }
-    
-    
-    
-    
-    private func udacityURLFromParameters(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
-        
-        let components = NSURLComponents()
-        components.scheme = Constants.UdacityURLS.ApiScheme
-        components.host = Constants.UdacityURLS.ApiHost
-        components.path = Constants.UdacityURLS.ApiPath + (withPathExtension ?? "")
-        components.queryItems = [NSURLQueryItem]()
-        
-        for (key, value) in parameters {
-            let queryItem = NSURLQueryItem(name: key, value: "\(value)")
-            components.queryItems!.append(queryItem)
-        }
-        
-        return components.URL!
-    }
-    
-    
     
     
     class func sharedInstance() -> NetworkClient {

@@ -9,19 +9,13 @@
 import Foundation
 import MapKit
 
-class Student: NSObject, MKAnnotation {
+struct StudentInformation {
     
     // MARK: ===== Properties =====
     
     var firstName: String?
     var lastName: String?
-    
-    var mapString: String?
     var mediaURL: String?
-    
-    var objectID: String?
-    var uniqueKey: String?
-    
     var latitude: Double?
     var longitude: Double?
     
@@ -34,13 +28,13 @@ class Student: NSObject, MKAnnotation {
     }
     
     var subtitle: String? {
-        
         if mediaURL != nil {
             if mediaURL!.rangeOfString("http://") == nil && mediaURL!.rangeOfString("https://") == nil {
-                mediaURL = "http://" + mediaURL!
+                let newMediaURL = "http://" + mediaURL!
+                return newMediaURL
+            } else {
+                return mediaURL
             }
-            //UIApplication.sharedApplication().openURL(NSURL(string: mediaURL!)!)
-            return mediaURL!
         } else {
             return ""
         }
@@ -52,17 +46,11 @@ class Student: NSObject, MKAnnotation {
     
     // MARK: ===== Init Method =====
     
-    init(firstName: String, lastName: String, mapString: String, mediaURL: String, objectID: String, uniqueKey: String, latitude: Double, longitude: Double) {
-        super.init()
-        
-        self.firstName = firstName
-        self.lastName = lastName
-        self.mapString = mapString
-        self.mediaURL = mediaURL
-        self.objectID = objectID
-        self.uniqueKey = uniqueKey
-        self.latitude = latitude
-        self.longitude = longitude
-        //self.coordinate = coordinate
+    init(withDictionary: [String : AnyObject]) {
+        firstName = withDictionary["firstName"] as? String
+        lastName = withDictionary["lastName"] as? String
+        mediaURL = withDictionary["mediaURL"] as? String
+        latitude = withDictionary["latitude"] as? Double
+        longitude = withDictionary["longitude"] as? Double
     }
 }

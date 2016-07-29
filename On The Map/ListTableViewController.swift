@@ -12,7 +12,8 @@ class ListTableViewController: UITableViewController {
     
     // MARK: ===== Properties =====
     
-    var students = [Student]()
+    //var studentsArray = Students.sharedInstance
+    //var client = NetworkClient.sharedInstance()
     
     
     
@@ -22,7 +23,23 @@ class ListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadData()
+        if Students.sharedInstance.isEmpty {
+            loadData()
+        }
+        
+    }
+    
+    
+    func loadData() {
+        NetworkClient.sharedInstance().loadStudents{ (errorString) in
+            if errorString != nil {
+                print(errorString)
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
+            }
+        }
     }
     
     
@@ -36,34 +53,10 @@ class ListTableViewController: UITableViewController {
     }
     
     
-    @IBAction func pinButtonPressed(sender: AnyObject) {
-    }
-    
-    
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         NetworkClient.sharedInstance().logout()
         let controller = storyboard!.instantiateViewControllerWithIdentifier("loginView") as! LoginViewController
         presentViewController(controller, animated: true, completion: nil)
-    }
-    
-    
-    
-    
-    
-    // MARK: ===== Data Methods =====
-    
-    func loadData() {
-        NetworkClient.sharedInstance().loadStudents(self) { (data, errorString) in
-            if errorString != nil {
-                print(errorString)
-            } else {
-                self.students = []
-                self.students = data
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView.reloadData()
-                })
-            }
-        }
     }
     
     
@@ -77,21 +70,22 @@ class ListTableViewController: UITableViewController {
         let cellResuseIdentifier = "customCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellResuseIdentifier) as! LocationTableViewCell
         
-        let thisStudent = students[indexPath.row]
+        let thisStudent = Students.sharedInstance[indexPath.row]
 
         cell.nameLabel.text = "\(thisStudent.firstName!) \(thisStudent.lastName!)"
+        cell.urlLabel.text = thisStudent.subtitle!
         
         return cell
     }
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return students.count
+        return Students.sharedInstance.count
     }
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let thisStudent = students[indexPath.row]
+        let thisStudent = Students.sharedInstance[indexPath.row]
         guard var mediaURL = thisStudent.mediaURL else { return }
         
         if mediaURL.rangeOfString("http://") == nil && mediaURL.rangeOfString("https://") == nil {
