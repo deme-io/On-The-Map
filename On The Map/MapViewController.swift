@@ -33,8 +33,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         } else {
             loadMapWithAnnotations()
         }
-        
-        
     }
     
     
@@ -45,6 +43,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: ===== Data Methods =====
     
     func loadMapWithAnnotations() {
+        mapView.removeAnnotations(annotationsArray)
         self.annotationsArray = []
         for newStudent in Students.sharedInstance {
             let annotation = MKPointAnnotation()
@@ -54,7 +53,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             self.annotationsArray.append(annotation)
         }
-        
         mapView.addAnnotations(annotationsArray)
         mapView.showAnnotations(annotationsArray, animated: true)
     }
@@ -63,7 +61,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func reloadMapData() {
         client.loadStudents { (errorString) in
             if errorString != nil {
-                print(errorString)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentAlert("Reload Error", message: errorString!)
+                })
             } else {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.loadMapWithAnnotations()
@@ -80,8 +80,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: ===== IBAction Methods =====
     
     @IBAction func reloadButtonPressed(sender: AnyObject) {
-        mapView.removeAnnotations(annotationsArray)
-        reloadMapData()
+        if Reachability.isConnectedToNetwork() {
+            reloadMapData()
+        } else {
+            presentAlert("Network Failure", message: "Please check your internet connection")
+        }
+        
+        
     }
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {

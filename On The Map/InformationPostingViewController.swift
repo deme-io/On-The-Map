@@ -25,6 +25,11 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     @IBOutlet weak var loadingView: UIVisualEffectView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    
+    
+    
+    // MARK: ===== View Methods =====
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,19 +60,25 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
-        if urlTextField.text == "" {
-            presentAlert("URL Missing", message: "Please enter a url")
+        if Reachability.isConnectedToNetwork() {
+            if urlTextField.text == "" {
+                presentAlert("URL Missing", message: "Please enter a url")
+            } else {
+                currentUser.mediaURL = urlTextField.text
+                client.postUserInfo({ (success, errorString) in
+                    if !success {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentAlert("Reload Error", message: errorString!)
+                        })
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        })
+                    }
+                })
+            }
         } else {
-            currentUser.mediaURL = urlTextField.text
-            client.postUserInfo({ (success, errorString) in
-                if !success {
-                    self.presentAlert("Error", message: errorString!)
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                    })
-                }
-            })
+            presentAlert("Network Failure", message: "Please check your internet connection")
         }
     }
     
@@ -133,7 +144,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     
     
     
-    // MARK: ===== GeoCode Methods =====
+    // MARK: ===== Geocode Methods =====
     
     func shouldGeocode() {
         if locationTextField.text != "" {
@@ -148,7 +159,10 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     func forwardGeocoding(address: String) {
         CLGeocoder().geocodeAddressString(address, completionHandler: { (placemarks, error) in
             if error != nil {
-                self.presentAlert("No location found", message: "Please check the location entered")
+                dispatch_async(dispatch_get_main_queue(), { 
+                    self.stopLoadingVisual()
+                    self.presentAlert("No location found", message: "Please check the location entered")
+                })
                 return
             }
             if let placemarks = placemarks {
@@ -178,19 +192,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
         })
     }
     
-    
-    
-    
-    
-    
-    
-    // MARK: ===== AlertView Method =====
-    
-    func presentAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
-    }
+
     
     
     

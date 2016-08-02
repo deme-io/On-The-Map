@@ -196,7 +196,7 @@ class NetworkClient: NSObject {
 
         let task = session.dataTaskWithRequest(request) { data, response, taskerror in
             if taskerror != nil {
-                //completionHandlerForAuth(data: [], errorString: taskerror?.localizedDescription)
+                completionHandlerForAuth(errorString: taskerror?.localizedDescription)
                 return
             }
             
@@ -204,12 +204,14 @@ class NetworkClient: NSObject {
             do {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! [String : AnyObject]
             } catch {
-                print("Could not parse JSON data: \(data!)")
-                //completionHandlerForAuth(data: nil, errorString: taskerror?.localizedDescription)
+                completionHandlerForAuth(errorString: taskerror?.localizedDescription)
                 return
             }
             
-            let downloadedStudents = parsedResult["results"] as! NSArray
+            guard let downloadedStudents = parsedResult["results"] as? NSArray else {
+                completionHandlerForAuth(errorString: "Could not load")
+                return
+            }
             
             Students.sharedInstance = []
             
@@ -248,6 +250,7 @@ class NetworkClient: NSObject {
         }
         task.resume()
     }
+    
     
     
     class func sharedInstance() -> NetworkClient {

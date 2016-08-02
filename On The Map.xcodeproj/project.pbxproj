@@ -14,13 +14,14 @@
 		450E8D121D3E794E000E8CE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450E8D101D3E794E000E8CE3 /* LaunchScreen.storyboard */; };
 		450E8D1D1D3E794E000E8CE3 /* On_The_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E8D1C1D3E794E000E8CE3 /* On_The_MapTests.swift */; };
 		450E8D281D3E794E000E8CE3 /* On_The_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E8D271D3E794E000E8CE3 /* On_The_MapUITests.swift */; };
-		4517049A1D4B1FED00EC9027 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451704971D4B1FED00EC9027 /* Bolts.framework */; };
-		4517049B1D4B1FED00EC9027 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451704981D4B1FED00EC9027 /* FBSDKCoreKit.framework */; };
-		4517049C1D4B1FED00EC9027 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451704991D4B1FED00EC9027 /* FBSDKLoginKit.framework */; };
 		453544361D46C2C10074D10F /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4E21D3EDB4300DC66D4 /* NetworkClient.swift */; };
 		453997591D47B2BD00008199 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453997581D47B2BD00008199 /* InformationPostingViewController.swift */; };
 		453997731D48166900008199 /* Students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453997721D48166900008199 /* Students.swift */; };
 		455059D31D4720CA00C53092 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455059D21D4720CA00C53092 /* Reachability.swift */; };
+		455A16BE1D5056F1008D2932 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455A16BB1D5056F1008D2932 /* Bolts.framework */; };
+		455A16BF1D5056F1008D2932 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455A16BC1D5056F1008D2932 /* FBSDKCoreKit.framework */; };
+		455A16C01D5056F1008D2932 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455A16BD1D5056F1008D2932 /* FBSDKLoginKit.framework */; };
+		455A16C21D505ECD008D2932 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455A16C11D505ECD008D2932 /* UIViewControllerExtension.swift */; };
 		45B7F4D71D3E9B4E00DC66D4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */; };
 		45B7F4D91D3E9B5A00DC66D4 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */; };
 		45B7F4DB1D3E9D4300DC66D4 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */; };
@@ -63,13 +64,14 @@
 		450E8D231D3E794E000E8CE3 /* On The MapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "On The MapUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		450E8D271D3E794E000E8CE3 /* On_The_MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On_The_MapUITests.swift; sourceTree = "<group>"; };
 		450E8D291D3E794E000E8CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		451704971D4B1FED00EC9027 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		451704981D4B1FED00EC9027 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		451704991D4B1FED00EC9027 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		453997581D47B2BD00008199 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
 		453997721D48166900008199 /* Students.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Students.swift; sourceTree = "<group>"; };
 		455059C11D46D93A00C53092 /* OnTheMap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OnTheMap-Bridging-Header.h"; path = "../OnTheMap-Bridging-Header.h"; sourceTree = "<group>"; };
 		455059D21D4720CA00C53092 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		455A16BB1D5056F1008D2932 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "On The Map/Bolts.framework"; sourceTree = SOURCE_ROOT; };
+		455A16BC1D5056F1008D2932 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "On The Map/FBSDKCoreKit.framework"; sourceTree = SOURCE_ROOT; };
+		455A16BD1D5056F1008D2932 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "On The Map/FBSDKLoginKit.framework"; sourceTree = SOURCE_ROOT; };
+		455A16C11D505ECD008D2932 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		45B7F4DA1D3E9D4300DC66D4 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
@@ -88,9 +90,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				45EF5C3B1D41FB6D00C30CC6 /* MapKit.framework in Frameworks */,
-				4517049B1D4B1FED00EC9027 /* FBSDKCoreKit.framework in Frameworks */,
-				4517049C1D4B1FED00EC9027 /* FBSDKLoginKit.framework in Frameworks */,
-				4517049A1D4B1FED00EC9027 /* Bolts.framework in Frameworks */,
+				455A16BF1D5056F1008D2932 /* FBSDKCoreKit.framework in Frameworks */,
+				455A16C01D5056F1008D2932 /* FBSDKLoginKit.framework in Frameworks */,
+				455A16BE1D5056F1008D2932 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +175,7 @@
 				45B7F4D61D3E9B4E00DC66D4 /* MapViewController.swift */,
 				45B7F4D81D3E9B5A00DC66D4 /* ListTableViewController.swift */,
 				453997581D47B2BD00008199 /* InformationPostingViewController.swift */,
+				455A16C11D505ECD008D2932 /* UIViewControllerExtension.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -190,9 +193,9 @@
 			isa = PBXGroup;
 			children = (
 				455059C11D46D93A00C53092 /* OnTheMap-Bridging-Header.h */,
-				451704971D4B1FED00EC9027 /* Bolts.framework */,
-				451704981D4B1FED00EC9027 /* FBSDKCoreKit.framework */,
-				451704991D4B1FED00EC9027 /* FBSDKLoginKit.framework */,
+				455A16BB1D5056F1008D2932 /* Bolts.framework */,
+				455A16BC1D5056F1008D2932 /* FBSDKCoreKit.framework */,
+				455A16BD1D5056F1008D2932 /* FBSDKLoginKit.framework */,
 				45EF5C3A1D41FB6D00C30CC6 /* MapKit.framework */,
 			);
 			name = Frameworks;
@@ -346,6 +349,7 @@
 			files = (
 				453544361D46C2C10074D10F /* NetworkClient.swift in Sources */,
 				450E8D0A1D3E794E000E8CE3 /* LoginViewController.swift in Sources */,
+				455A16C21D505ECD008D2932 /* UIViewControllerExtension.swift in Sources */,
 				455059D31D4720CA00C53092 /* Reachability.swift in Sources */,
 				453997731D48166900008199 /* Students.swift in Sources */,
 				45B7F4DB1D3E9D4300DC66D4 /* LocationTableViewCell.swift in Sources */,

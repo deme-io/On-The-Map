@@ -10,13 +10,6 @@ import UIKit
 
 class ListTableViewController: UITableViewController {
     
-    // MARK: ===== Properties =====
-    
-    //var studentsArray = Students.sharedInstance
-    //var client = NetworkClient.sharedInstance()
-    
-    
-    
     
     // MARK: ===== View Methods =====
     
@@ -30,10 +23,13 @@ class ListTableViewController: UITableViewController {
     }
     
     
+    
     func loadData() {
         NetworkClient.sharedInstance().loadStudents{ (errorString) in
             if errorString != nil {
-                print(errorString)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentAlert("Reload Error", message: errorString!)
+                })
             } else {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
@@ -49,7 +45,12 @@ class ListTableViewController: UITableViewController {
     // MARK: ===== IBAction Methods =====
     
     @IBAction func reloadButtonPressed(sender: AnyObject) {
-        loadData()
+        if Reachability.isConnectedToNetwork() {
+            loadData()
+        } else {
+            presentAlert("Network Failure", message: "Please check your internet connection")
+        }
+        
     }
     
     
@@ -92,6 +93,11 @@ class ListTableViewController: UITableViewController {
             mediaURL = "http://" + mediaURL
         }
         UIApplication.sharedApplication().openURL(NSURL(string: mediaURL)!)
+    }
+    
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     

@@ -6,6 +6,12 @@
 //  Copyright © 2016 Demetrius Henry. All rights reserved.
 //
 
+
+
+// This solution is from StackOverflow.com
+
+
+
 import Foundation
 import SystemConfiguration
 

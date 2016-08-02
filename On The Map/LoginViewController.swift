@@ -138,6 +138,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
                     }
                 } else {
                     dispatch_async(dispatch_get_main_queue()) {
+                        self.stopLoadingVisual()
                         self.presentAlert("Login Error", message: "Please check your email and password")
                         self.stopLoadingVisual()
                         //return
@@ -146,6 +147,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
                 
             }
         } else {
+            stopLoadingVisual()
             presentAlert("Network Failure", message: "Please check your internet connection")
         }
         
@@ -159,16 +161,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
             currentUser.password = passwordTextField.text!
             authenticate()
         } else {
+            stopLoadingVisual()
             presentAlert("Login Error", message: "Please enter a valid email and password")
         }
     }
     
     
-    func presentAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
-    }
+    
     
     
     
