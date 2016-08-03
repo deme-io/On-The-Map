@@ -13,7 +13,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: ===== Properties =====
     
-    let client = NetworkClient.sharedInstance()
+    let client = NetworkClient.sharedInstance
     var annotationsArray = [MKPointAnnotation]()
     
     @IBOutlet weak var mapView: MKMapView!
@@ -59,17 +59,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     func reloadMapData() {
-        client.loadStudents { (errorString) in
-            if errorString != nil {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentAlert("Reload Error", message: errorString!)
-                })
-            } else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.loadMapWithAnnotations()
-                })
+        if Reachability.isConnectedToNetwork() {
+            client.loadStudents { (errorString) in
+                if errorString != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentAlert("Could not load map", message: errorString!)
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.loadMapWithAnnotations()
+                    })
+                }
             }
+        } else {
+            presentAlert("Network Failure", message: "Please check your internet connection")
         }
+        
     }
     
     
@@ -80,17 +85,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: ===== IBAction Methods =====
     
     @IBAction func reloadButtonPressed(sender: AnyObject) {
-        if Reachability.isConnectedToNetwork() {
-            reloadMapData()
-        } else {
-            presentAlert("Network Failure", message: "Please check your internet connection")
-        }
-        
-        
+        reloadMapData()
     }
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
-        NetworkClient.sharedInstance().logout()
+        NetworkClient.sharedInstance.logout()
         let controller = storyboard!.instantiateViewControllerWithIdentifier("loginView") as! LoginViewController
         presentViewController(controller, animated: true, completion: nil)
     }

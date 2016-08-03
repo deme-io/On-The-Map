@@ -25,17 +25,27 @@ class ListTableViewController: UITableViewController {
     
     
     func loadData() {
-        NetworkClient.sharedInstance().loadStudents{ (errorString) in
-            if errorString != nil {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentAlert("Reload Error", message: errorString!)
-                })
-            } else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView.reloadData()
-                })
+        if Reachability.isConnectedToNetwork() {
+            NetworkClient.sharedInstance.loadStudents{ (errorString) in
+                if errorString != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentAlert("Could not load list", message: errorString!)
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.tableView.reloadData()
+                    })
+                }
             }
+        } else {
+            presentAlert("Network Failure", message: "Please check your internet connection")
         }
+        
+    }
+    
+    
+    func checkNetworkAvailability() {
+        loadData()
     }
     
     
@@ -55,7 +65,7 @@ class ListTableViewController: UITableViewController {
     
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
-        NetworkClient.sharedInstance().logout()
+        NetworkClient.sharedInstance.logout()
         let controller = storyboard!.instantiateViewControllerWithIdentifier("loginView") as! LoginViewController
         presentViewController(controller, animated: true, completion: nil)
     }

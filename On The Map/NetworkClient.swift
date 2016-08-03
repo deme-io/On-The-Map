@@ -13,6 +13,7 @@ import MapKit
 class NetworkClient: NSObject {
     
     // MARK: ===== Properties =====
+    static var sharedInstance = NetworkClient()
     
     var session = NSURLSession.sharedSession()
     var currentUser = CurrentUser.sharedInstance()
@@ -164,11 +165,6 @@ class NetworkClient: NSObject {
                     }
                 })
             }
-            loadStudents({ (errorString) in
-                if errorString != nil {
-                    print("Connection Error: Could not load data")
-                }
-            })
             return true
         } else {
             return false
@@ -193,23 +189,42 @@ class NetworkClient: NSObject {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100&order=-updatedAt")!)
         request.addValue(Constants.Parse.ApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(Constants.Parse.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.HTTPMethod = "GET"
 
         let task = session.dataTaskWithRequest(request) { data, response, taskerror in
-            if taskerror != nil {
-                completionHandlerForAuth(errorString: taskerror?.localizedDescription)
+            func forwardError(errorString: String) {
+                completionHandlerForAuth(errorString: errorString)
+            }
+            
+            
+            guard (taskerror == nil) else {
+                print(taskerror?.localizedDescription)
+                forwardError((taskerror?.localizedDescription)!)
                 return
             }
             
+            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                forwardError("Your request returned a status code of \((response as? NSHTTPURLResponse)!.statusCode)")
+                print((response as? NSHTTPURLResponse)?.statusCode)
+                return
+            }
+            
+            guard let data = data else {
+                forwardError("No data was returned by the request!")
+                return
+            }
+            
+            
             var parsedResult: [String: AnyObject]
             do {
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! [String : AnyObject]
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String : AnyObject]
             } catch {
                 completionHandlerForAuth(errorString: taskerror?.localizedDescription)
                 return
             }
             
             guard let downloadedStudents = parsedResult["results"] as? NSArray else {
-                completionHandlerForAuth(errorString: "Could not load")
+                completionHandlerForAuth(errorString: "Could not load data")
                 return
             }
             
@@ -237,7 +252,7 @@ class NetworkClient: NSObject {
         request.addValue(Constants.Parse.ApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(Constants.Parse.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"\(currentUser.firstName!)\", \"lastName\": \"\(currentUser.lastName!)\",\"mapString\": \"\(currentUser.title!)\", \"mediaURL\": \"\(currentUser.mediaURL!)\",\"latitude\": \(currentUser.coordinate.latitude), \"longitude\": \(currentUser.coordinate.longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
+        request.HTTPBody = "{\"uniqueKey\": \"\(NSUUID().UUIDString)\", \"firstName\": \"\(currentUser.firstName!)\", \"lastName\": \"\(currentUser.lastName!)\",\"mapString\": \"\(currentUser.title!)\", \"mediaURL\": \"\(currentUser.mediaURL!)\",\"latitude\": \(currentUser.coordinate.latitude), \"longitude\": \(currentUser.coordinate.longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil {
@@ -249,15 +264,6 @@ class NetworkClient: NSObject {
             completionHandlerForPost(success: true, errorString: nil)
         }
         task.resume()
-    }
-    
-    
-    
-    class func sharedInstance() -> NetworkClient {
-        struct Singleton {
-            static var sharedInstance = NetworkClient()
-        }
-        return Singleton.sharedInstance
     }
     
 }
