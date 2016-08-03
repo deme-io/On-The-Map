@@ -63,7 +63,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             client.loadStudents { (errorString) in
                 if errorString != nil {
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.presentAlert("Could not load map", message: errorString!)
+                        self.presentAlert("Could not load", message: "There was a problem loading the student information")
                     })
                 } else {
                     dispatch_async(dispatch_get_main_queue(), {
