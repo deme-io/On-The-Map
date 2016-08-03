@@ -13,7 +13,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
     // MARK: ===== Properties =====
     
     var client = NetworkClient.sharedInstance
-    var currentUser = CurrentUser.sharedInstance()
+    var currentUser = CurrentUser.sharedInstance
     
     @IBOutlet weak var emailTextField: PaddedLoginTextField!
     @IBOutlet weak var passwordTextField: PaddedLoginTextField!

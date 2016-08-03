@@ -14,7 +14,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate, M
     // MARK: ===== Properties =====
     
     let client = NetworkClient.sharedInstance
-    let currentUser = CurrentUser.sharedInstance()
+    let currentUser = CurrentUser.sharedInstance
     
     @IBOutlet weak var whereAreYouStudyingLabel: UILabel!
     @IBOutlet weak var locationTextField: UITextField!

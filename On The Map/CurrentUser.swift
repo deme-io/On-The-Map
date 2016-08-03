@@ -14,6 +14,8 @@ class CurrentUser: NSObject, MKAnnotation {
     
     // MARK: ===== Properties =====
     
+    static var sharedInstance = CurrentUser()
+    
     var firstName: String?
     var lastName: String?
     var email: String?
@@ -25,24 +27,9 @@ class CurrentUser: NSObject, MKAnnotation {
     var facebookTokenString: String?
     
     
-    
-    
-    
     // MARK: ===== MKAnnotion Protocol Properties =====
     
     var title: String?
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
     
-    
-    
-    
-    
-    // MARK: ===== Singleton =====
-    
-    class func sharedInstance() -> CurrentUser {
-        struct Singleton {
-            static var sharedInstance = CurrentUser()
-        }
-        return Singleton.sharedInstance
-    }
 }

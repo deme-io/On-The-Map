@@ -16,10 +16,7 @@ class NetworkClient: NSObject {
     static var sharedInstance = NetworkClient()
     
     var session = NSURLSession.sharedSession()
-    var currentUser = CurrentUser.sharedInstance()
-    //var studentsArray = Students.sharedInstance
-    
-    
+    var currentUser = CurrentUser.sharedInstance
     
     
     
